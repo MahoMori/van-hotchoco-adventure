@@ -7,6 +7,8 @@ import MapComponent from "./components/map/MapComponent";
 import ShopList from "./components/shop-list/ShopList";
 import UserGuide from "./components/user-guide/UserGuide";
 
+import FirebaseUploader from "./firebase/firebase.uploader";
+
 function App() {
   return (
     <div className="App">
@@ -15,6 +17,7 @@ function App() {
       </header>
 
       <main>
+        <FirebaseUploader />
         <Routes>
           <Route path="/" element={<MapComponent />} />
           <Route path="/shop-list" element={<ShopList />} />
