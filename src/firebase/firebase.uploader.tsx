@@ -4,7 +4,7 @@
 // #######################
 
 import React, { useEffect } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebase.util";
 
 import usersData from "./users.json";
@@ -12,10 +12,14 @@ import usersData from "./users.json";
 const FirebaseUploader = () => {
   // Add a new document in collection "cities"
   const writeUserData = async (userId: string, name: string, email: string) => {
-    await setDoc(doc(db, "users", userId), {
-      name,
-      email,
-    });
+    try {
+      await addDoc(collection(db, "users"), {
+        name,
+        email,
+      });
+    } catch {
+      console.log("Something went wrong.");
+    }
   };
   useEffect(() => {
     usersData.map((user) => {

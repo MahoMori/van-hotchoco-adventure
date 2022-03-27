@@ -18,6 +18,7 @@ function App() {
 
       <main>
         <FirebaseUploader />
+
         <Routes>
           <Route path="/" element={<MapComponent />} />
           <Route path="/shop-list" element={<ShopList />} />
