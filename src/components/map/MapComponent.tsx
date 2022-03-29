@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
-
-import { BiCoffeeTogo } from "react-icons/bi";
 
 import Marker from "./marker-&-info-window/Marker";
 
@@ -48,19 +46,5 @@ const MapComponent = () => {
     </section>
   );
 };
-
-// interface MarkerProps {
-//   lat: string;
-//   lng: string;
-// }
-
-// const Marker = (props: MarkerProps) => {
-//   return (
-//     <BiCoffeeTogo
-//       style={{ height: "50px", width: "50px", color: "red" }}
-//       onClick={(): void => console.log("clicked")}
-//     ></BiCoffeeTogo>
-//   );
-// };
 
 export default MapComponent;

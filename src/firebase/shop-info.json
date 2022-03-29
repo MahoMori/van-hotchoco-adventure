@@ -1,12 +1,55 @@
-{
-  "users": [
-    {
-      "id": "1",
-      "firstName": "Kristin",
-      "lastName": "Smith",
-      "occupation": "Teacher",
-      "reviewCount": "6",
-      "reviewScore": "5"
+[
+  {
+    "shopName": "49th Parallel Coffee Roasters + Lucky's Doughnuts",
+    "flavours": [
+      { "flavourName": "COCOA POP", "availability": "January 15 - 28, 2022" },
+      {
+        "flavourName": "MILK CHOCOLA-TEA",
+        "availability": "January 29 - February 11, 2022"
+      }
+    ],
+    "address": ["2902 Main St.", "2198 West Fourth Ave.", "689 Thurlow St."],
+    "mapArea": [
+      "Downtown Vancouver",
+      "Mount Pleasant / East Vancouver",
+      "South Granville / Kitsilano"
+    ],
+    "websiteUrl": "https://hotchocolatefest.com/49-parallel",
+    "filtering": {
+      "takeoutOnly": true,
+      "limitedCafeService": false,
+      "glutenFree": false,
+      "dairyFree": false,
+      "vegan": false,
+      "openLate": false
     }
-  ]
-}
+  },
+  {
+    "shopName": "À La Mode Pie Café",
+    "flavours": [
+      {
+        "flavourName": "CARAMIA JUJUBE",
+        "availability": "January 15 - 24, 2022"
+      },
+      {
+        "flavourName": "WASABI? CANNONBALL",
+        "availability": "January 25 - February 4, 2022"
+      },
+      {
+        "flavourName": "CAESAR'S PROPOSAL",
+        "availability": "February 5 - 14, 2022"
+      }
+    ],
+    "address": ["1689 Johnston St at the Granville Island Public Market"],
+    "mapArea": ["South Granville / Kitsilano"],
+    "websiteUrl": "https://hotchocolatefest.com/%C3%A0-la-mode-pie-caf%C3%A9-1",
+    "filtering": {
+      "takeoutOnly": true,
+      "limitedCafeService": false,
+      "glutenFree": false,
+      "dairyFree": false,
+      "vegan": false,
+      "openLate": false
+    }
+  }
+]
