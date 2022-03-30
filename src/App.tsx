@@ -17,7 +17,7 @@ function App() {
       </header>
 
       <main>
-        <FirebaseUploader />
+        {/* <FirebaseUploader /> */}
 
         <Routes>
           <Route path="/" element={<MapComponent />} />

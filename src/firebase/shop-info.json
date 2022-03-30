@@ -2,54 +2,174 @@
   {
     "shopName": "49th Parallel Coffee Roasters + Lucky's Doughnuts",
     "flavours": [
-      { "flavourName": "COCOA POP", "availability": "January 15 - 28, 2022" },
+      {
+        "flavourName": "COCOA POP",
+        "taste": "Caramel popcorn hot chocolate made with 66% dark chocolate and a house-made buttery, salted caramel sauce."
+      },
       {
         "flavourName": "MILK CHOCOLA-TEA",
-        "availability": "January 29 - February 11, 2022"
+        "taste": "Milk tea hot chocolate made with 66% dark chocolate and house-made brown sugar tea reduction."
       }
     ],
-    "address": ["2902 Main St.", "2198 West Fourth Ave.", "689 Thurlow St."],
+    "latLng": [
+      { "lat": "49.258822", "lng": "-123.100979" },
+      { "lat": "49.268278", "lng": "-123.154017" },
+      { "lat": "49.285412", "lng": "-123.123329" }
+    ],
     "mapArea": [
       "Downtown Vancouver",
       "Mount Pleasant / East Vancouver",
       "South Granville / Kitsilano"
     ],
     "websiteUrl": "https://hotchocolatefest.com/49-parallel",
-    "filtering": {
-      "takeoutOnly": true,
-      "limitedCafeService": false,
-      "glutenFree": false,
-      "dairyFree": false,
-      "vegan": false,
-      "openLate": false
-    }
+    "filtering": ["takeoutOnly"]
   },
+
   {
     "shopName": "À La Mode Pie Café",
     "flavours": [
       {
         "flavourName": "CARAMIA JUJUBE",
-        "availability": "January 15 - 24, 2022"
+        "taste": "Home-made jujube fruit sauce mixed in hot chocolate - a bittersweet memory garnished with home-made Jujube S'mores."
       },
       {
         "flavourName": "WASABI? CANNONBALL",
-        "availability": "January 25 - February 4, 2022"
+        "taste": "Wasabi? Cannonball in a shiso-rimmed hot chocolate pool. Topped with Furikake sprinkles, wasabi chantilly and instant noodles. "
       },
       {
         "flavourName": "CAESAR'S PROPOSAL",
-        "availability": "February 5 - 14, 2022"
+        "taste": "Tabasco meets Caesar spices in a Caesar-rimmed cup of hot chocolate garnished with white chocolate chantilly and  rose petals."
       }
     ],
-    "address": ["1689 Johnston St at the Granville Island Public Market"],
+    "latLng": [{ "lat": "49.2727314", "lng": "-123.1352742" }],
     "mapArea": ["South Granville / Kitsilano"],
     "websiteUrl": "https://hotchocolatefest.com/%C3%A0-la-mode-pie-caf%C3%A9-1",
-    "filtering": {
-      "takeoutOnly": true,
-      "limitedCafeService": false,
-      "glutenFree": false,
-      "dairyFree": false,
-      "vegan": false,
-      "openLate": false
-    }
+    "filtering": ["takeoutOnly"]
+  },
+
+  {
+    "shopName": "Artigiano",
+    "flavours": [
+      {
+        "flavourName": "FLUFFERNUTTER HOT CHOCOLATE",
+        "taste": "Hand crafted chocolate peanut syrup, whipped marshmallow with shaved chocolate."
+      },
+      {
+        "flavourName": "SALTED MISO HOT CHOCOLATE",
+        "taste": "Salted chocolate syrup, miso powder, Vancouver Island salt, Callebaut pearls, caramel sugar."
+      }
+    ],
+    "latLng": [
+      { "lat": "49.248942", "lng": "-123.100634" },
+      { "lat": "49.345090", "lng": "-123.094380" },
+      { "lat": "49.283630", "lng": "-123.120390" },
+      { "lat": "49.285940", "lng": "-123.116830" },
+      { "lat": "49.234320", "lng": "-123.157330" },
+      { "lat": "49.263270", "lng": "-123.107110" }
+    ],
+    "mapArea": [
+      "Westside / Kerrisdale",
+      "North Vancouver / West Vancouver",
+      "Downtown Vancouver",
+      "Burnaby",
+      "Mount Pleasant / East Vancouver",
+      "Richmond"
+    ],
+    "websiteUrl": "https://hotchocolatefest.com/artigiano",
+    "filtering": ["limitedCafeService", "openLate"]
+  },
+
+  {
+    "shopName": "Beaucoup Bakery",
+    "flavours": [
+      {
+        "flavourName": "STRAWBERRY POCKY FOREVER",
+        "taste": "Valrhona Strawberry couverture chocolate infused with a hint of sweet rose."
+      },
+      {
+        "flavourName": "SMOOTH LIKE BUTTER",
+        "taste": "Caramelized honey butter sauce blended into Valrhona Dulcey 35% blond chocolate."
+      }
+    ],
+    "latLng": [{ "lat": "", "lng": "" }],
+    "mapArea": ["South Granville / Kitsilano"],
+    "websiteUrl": "https://hotchocolatefest.com/beaucoup-bakery",
+    "filtering": ["takeoutOnly"]
+  },
+
+  {
+    "shopName": "Bel Café",
+    "flavours": [
+      {
+        "flavourName": "WARM & FUZZY",
+        "taste": "Hot chocolate with buttered rum."
+      },
+      {
+        "flavourName": " PEANUT BUTTER CUP",
+        "taste": "A blend of hot chocolate and peanut butter."
+      }
+    ],
+    "latLng": [{ "lat": "", "lng": "" }],
+    "mapArea": ["Downtown Vancouver", "South Granville / Kitsilano"],
+    "websiteUrl": "https://hotchocolatefest.com/bel-cafe",
+    "filtering": ["limitedCafeService"]
+  },
+
+  {
+    "shopName": "Bellaggio Cafe",
+    "flavours": [
+      {
+        "flavourName": "NETFLIX AND CHILL",
+        "taste": "Dark hot chocolate flavoured with butterscotch and topped with whipped cream, popcorn and a caramel/nuts drizzle."
+      },
+      {
+        "flavourName": "FVOCO",
+        "taste": "Spicy hot chocolate with a touch of cayenne pepper, infused with star anise and cloves and topped with whipped cream and Amaretto powder."
+      },
+      {
+        "flavourName": "THE OCD",
+        "taste": "Dark hot chocolate married with orange/cinnamon dates and topped with cream Amarena cherry and merengue crumble."
+      }
+    ],
+    "latLng": [{ "lat": "", "lng": "" }],
+    "mapArea": ["Downtown Vancouver"],
+    "websiteUrl": "https://hotchocolatefest.com/bellaggio-cafe",
+    "filtering": ["limitedCafeService", "openLate"]
+  },
+
+  {
+    "shopName": "The Bench Bakehouse",
+    "flavours": [
+      {
+        "flavourName": "KOUIGN OF THE EMPIRE",
+        "taste": "white hot chocolate infused with cardamom and orange blossom."
+      },
+      {
+        "flavourName": "THE POLAR VORTEX (DFO)",
+        "taste": "Strawberry hot chocolate made with rich dark chocolate and fresh strawberry puree."
+      }
+    ],
+    "latLng": [{ "lat": "", "lng": "" }],
+    "mapArea": ["Mount Pleasant / East Vancouver"],
+    "websiteUrl": "https://hotchocolatefest.com/bench-bakehouse",
+    "filtering": ["takeoutOnly", "dairyFree"]
+  },
+
+  {
+    "shopName": "Beta 5 Chocolates",
+    "flavours": [
+      {
+        "flavourName": "STRAWBERRY POCKY FOREVER",
+        "taste": "Valrhona Strawberry couverture chocolate infused with a hint of sweet rose."
+      },
+      {
+        "flavourName": "SMOOTH LIKE BUTTER",
+        "taste": "Caramelized honey butter sauce blended into Valrhona Dulcey 35% blond chocolate."
+      }
+    ],
+    "latLng": [{ "lat": "", "lng": "" }],
+    "mapArea": ["South Granville / Kitsilano"],
+    "websiteUrl": "https://hotchocolatefest.com/beaucoup-bakery",
+    "filtering": ["takeoutOnly"]
   }
 ]

@@ -1,9 +1,12 @@
 import styled from "styled-components";
 
 export const MarkerInfoContainer = styled.div`
-  background-color: pink;
+  /* background-color: pink; */
   width: 20rem;
   height: 10rem;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
 `;
 
 export const InfoWindow = styled.div<{ isOpen: boolean }>`
