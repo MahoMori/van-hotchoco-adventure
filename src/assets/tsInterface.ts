@@ -9,6 +9,7 @@ export interface MapProps {
 export interface MarkerProps {
   lat: string;
   lng: string;
+  shop?: JsonProps;
 }
 
 export interface JsonProps {
@@ -18,6 +19,8 @@ export interface JsonProps {
   mapArea: string[];
   websiteUrl: string;
   filtering: string[];
+  isFav?: boolean;
+  beenTo?: boolean;
   // filtering: {
   //   takeoutOnly: boolean;
   //   limitedCafeService: boolean;
@@ -26,4 +29,13 @@ export interface JsonProps {
   //   vegan: boolean;
   //   openLate: boolean;
   // };
+}
+
+// export interface ReduxProps extends JsonProps {
+//   isFav: boolean;
+//   beenTo: boolean;
+// }
+
+export interface ReduxState {
+  shops: JsonProps[];
 }

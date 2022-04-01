@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BiCoffeeTogo } from "react-icons/bi";
 import { SiBuymeacoffee } from "react-icons/si";
 import { GiCoffeeMug } from "react-icons/gi";
+
 import { MarkerProps } from "../../../assets/tsInterface";
 
 import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
@@ -24,16 +25,23 @@ import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
 // #######################
 
 const Marker = (vals: MarkerProps) => {
+  // const Marker = (shop: JsonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
     <MarkerInfoContainer>
       <InfoWindow isOpen={isOpen}>
         <div>
-          <p>InfoWindow</p>
-          <p>InfoWindow</p>
-          <p>InfoWindow</p>
+          <p>
+            <a href={vals.shop?.websiteUrl}>{vals.shop?.shopName}</a>
+          </p>
         </div>
+
+        <ul>
+          {vals.shop?.flavours.map((flavour) => (
+            <li key={flavour.flavourName}>{flavour.flavourName}</li>
+          ))}
+        </ul>
 
         <div>{/* icon */}</div>
       </InfoWindow>
