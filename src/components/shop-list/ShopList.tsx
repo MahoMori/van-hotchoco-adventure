@@ -1,13 +1,10 @@
 import React from "react";
 
 // ------ icon ------
-import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
-import { IoStorefront, IoStorefrontOutline } from "react-icons/io5";
 import { HiOutlineExternalLink } from "react-icons/hi";
 
 // ------ redux ------
-import { useDispatch, useSelector } from "react-redux";
-import { changeIsFav } from "../../redux/shopSlice";
+import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ map area object ------
@@ -36,7 +33,6 @@ import FavBeenToIcons from "../reusable-components/FavBeenToIcons";
 
 const ShopList = () => {
   // ------ redux ------
-  const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
 
   return (
