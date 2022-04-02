@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// ------ icon ------
 import { BiCoffeeTogo } from "react-icons/bi";
 import { SiBuymeacoffee } from "react-icons/si";
 import { GiCoffeeMug } from "react-icons/gi";
@@ -7,8 +8,17 @@ import { GiCoffeeMug } from "react-icons/gi";
 import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 import { IoStorefront, IoStorefrontOutline } from "react-icons/io5";
 
-import { MarkerProps } from "../../../assets/tsInterface";
+// ------ redux ------
+import { useDispatch } from "react-redux";
+import { changeIsFav, changeBeenTo } from "../../../redux/shopSlice";
 
+// ------ TS interface ------
+import { JsonProps, MarkerProps } from "../../../assets/tsInterface";
+
+// ------ components ------
+import FavBeenToIcons from "../../reusable-components/FavBeenToIcons";
+
+// ------ styled component ------
 import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
 
 // #######################
@@ -28,7 +38,10 @@ import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
 // #######################
 
 const Marker = (vals: MarkerProps) => {
-  // const Marker = (shop: JsonProps) => {
+  // ------ redux ------
+  const dispatch = useDispatch();
+
+  // ------ is Info Window open ------
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
@@ -63,8 +76,7 @@ const Marker = (vals: MarkerProps) => {
         </ul>
 
         <div>
-          {vals.shop?.isFav ? <BsBookmarkHeartFill /> : <BsBookmarkHeart />}
-          {vals.shop?.beenTo ? <IoStorefront /> : <IoStorefrontOutline />}
+          <FavBeenToIcons shop={vals.shop as JsonProps} kw="marker" />
         </div>
       </InfoWindow>
     </MarkerInfoContainer>

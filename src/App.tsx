@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./App.css";
 
 import { Routes, Route, Link } from "react-router-dom";
@@ -7,9 +7,35 @@ import MapComponent from "./components/map/MapComponent";
 import ShopList from "./components/shop-list/ShopList";
 import UserGuide from "./components/user-guide/UserGuide";
 
+// ------ json data ------
+import shopListData from "./firebase/shop-info.json";
+
+// ------ redux ------
+import { useDispatch } from "react-redux";
+import { setReduxState } from "./redux/shopSlice";
+
+// ------ TS interface ------
+import { JsonProps } from "./assets/tsInterface";
+
+// ------ upload json data to firebase ------
 import FirebaseUploader from "./firebase/firebase.uploader";
 
 function App() {
+  // ------ redux ------
+  const dispatch = useDispatch();
+  // const shops = useSelector((state: TStore) => state.shops.shops);
+
+  useEffect(() => {
+    const newList = shopListData.map((shop: JsonProps): JsonProps => {
+      shop.isFav = false;
+      shop.beenTo = false;
+      return shop;
+    });
+    dispatch(setReduxState(newList));
+
+    // console.log(shops);
+  }, []);
+
   return (
     <div className="App">
       <header>

@@ -1,22 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 // ------ google map react ------
 import GoogleMapReact from "google-map-react";
 
-// ------ json data ------
-import shopListData from "../../firebase/shop-info.json";
-
 // ------ redux ------
-import { useDispatch, useSelector } from "react-redux";
-import {
-  setReduxState,
-  changeIsFav,
-  changeBeenTo,
-} from "../../redux/shopSlice";
+import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ TS interface ------
-import { JsonProps, MapProps } from "../../assets/tsInterface";
+import { MapProps } from "../../assets/tsInterface";
 
 // ------ components ------
 import Marker from "./marker-&-info-window/Marker";
@@ -45,20 +37,7 @@ const MapComponent = () => {
   const [mapProps, setMapProps] = useState<MapProps>(initialMapProps);
 
   // ------ redux ------
-  // const [shops, setShops] = useState<JsonProps[]>([...shopListData]);
-  const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
-
-  useEffect(() => {
-    const newList = shopListData.map((shop: JsonProps): JsonProps => {
-      shop.isFav = false;
-      shop.beenTo = false;
-      return shop;
-    });
-    dispatch(setReduxState(newList));
-
-    console.log(shops);
-  }, []);
 
   return (
     <section>
@@ -70,8 +49,6 @@ const MapComponent = () => {
         >
           {/* <Marker lat="49.258822" lng="-123.100979" />
           <Marker lat="49.248942" lng="-123.100634" /> */}
-
-          {/* {shops.length > 0 && shops.map((shop) => <Marker shop={shop} />)} */}
 
           {shops.length > 0 &&
             shops.map((shop) => {

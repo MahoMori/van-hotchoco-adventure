@@ -31,11 +31,15 @@ export interface JsonProps {
   // };
 }
 
-// export interface ReduxProps extends JsonProps {
-//   isFav: boolean;
-//   beenTo: boolean;
-// }
-
 export interface ReduxState {
   shops: JsonProps[];
+}
+
+export interface MapAreaColor {
+  [key: string]: string;
+}
+
+export interface IconsProps {
+  shop: JsonProps;
+  kw: string;
 }
