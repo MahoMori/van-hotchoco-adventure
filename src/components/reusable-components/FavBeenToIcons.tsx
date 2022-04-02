@@ -9,9 +9,9 @@ import { useDispatch } from "react-redux";
 import { changeIsFav, changeBeenTo } from "../../redux/shopSlice";
 
 // ------ TS interface ------
-import { IconsProps } from "../../assets/tsInterface";
+import { IconsProps, LocationProps } from "../../assets/tsInterface";
 
-const FavBeenToIcons: React.VFC<IconsProps> = ({ shop, kw }) => {
+const FavBeenToIcons: React.VFC<IconsProps> = ({ shop, shopLocation, kw }) => {
   // ------ redux ------
   const dispatch = useDispatch();
 
@@ -24,18 +24,12 @@ const FavBeenToIcons: React.VFC<IconsProps> = ({ shop, kw }) => {
       )}
 
       {shop.beenTo ? (
-        <IoStorefront
-          onClick={() => {
-            if (kw === "marker") {
-              dispatch(changeBeenTo(shop));
-            }
-          }}
-        />
+        <IoStorefront />
       ) : (
         <IoStorefrontOutline
           onClick={() => {
             if (kw === "marker") {
-              dispatch(changeBeenTo(shop));
+              dispatch(changeBeenTo([shop, shopLocation as LocationProps]));
             }
           }}
         />

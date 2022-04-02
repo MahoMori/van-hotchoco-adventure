@@ -39,7 +39,12 @@ export interface MapAreaColor {
   [key: string]: string;
 }
 
+export interface LocationProps {
+  [key: string]: number;
+}
+
 export interface IconsProps {
   shop: JsonProps;
+  shopLocation?: LocationProps;
   kw: string;
 }

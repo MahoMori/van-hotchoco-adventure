@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { JsonProps, ReduxState } from "../assets/tsInterface";
+import { JsonProps, LocationProps, ReduxState } from "../assets/tsInterface";
 
 const initialState: ReduxState = {
   shops: [],
@@ -42,18 +42,67 @@ export const shopSlice = createSlice({
       });
     },
 
-    changeBeenTo: (state, action: PayloadAction<JsonProps>) => {
-      const payloadShop = action.payload;
+    changeBeenTo: (
+      state,
+      action: PayloadAction<[JsonProps, LocationProps]>
+    ) => {
+      const payloadShop = action.payload[0];
+      const shopLocation = action.payload[1];
+      const testLocation: LocationProps = { lat: 59.345635, lng: 18.059707 };
 
-      payloadShop.beenTo
-        ? (payloadShop.beenTo = false)
-        : (payloadShop.beenTo = true);
+      let currentLocation: LocationProps = { lat: 0, lng: 0 };
 
-      state.shops.map((shop) => {
-        return shop.shopName === payloadShop.shopName
-          ? (shop = payloadShop)
-          : shop;
-      });
+      const getCurrentLocation = (): void => {
+        navigator.geolocation.getCurrentPosition((position) => {
+          // console.log("current latitude: ",position.coords.latitude);
+          // console.log("current longitude: ",position.coords.longitude);
+
+          currentLocation.lat = position.coords.latitude;
+          currentLocation.lng = position.coords.longitude;
+        });
+      };
+
+      const arePointsNear = (
+        userLocation: LocationProps,
+        hcShopLocation: LocationProps,
+        km: number
+      ): boolean => {
+        const ky = 40000 / 360;
+        const kx = Math.cos((Math.PI * hcShopLocation.lat) / 180.0) * ky;
+        const dx = Math.abs(hcShopLocation.lng - userLocation.lng) * kx;
+        const dy = Math.abs(hcShopLocation.lat - userLocation.lat) * ky;
+        return Math.sqrt(dx * dx + dy * dy) <= km;
+      };
+
+      if (!payloadShop.beenTo) {
+        getCurrentLocation();
+        if (arePointsNear(currentLocation, testLocation, 10)) {
+          payloadShop.beenTo = true;
+          state.shops.map((shop) => {
+            return shop.shopName === payloadShop.shopName
+              ? (shop = payloadShop)
+              : shop;
+          });
+        } else {
+          alert(
+            "Come closer to the shop and treat yourself with a warm hot chocolate😉"
+          );
+        }
+      } else {
+        alert(
+          "You've already been to this place! How was their hot chocolate?"
+        );
+      }
+
+      // payloadShop.beenTo
+      //   ? alert("You've already been to this place! How was their hot chocolate?")
+      //   : arePointsNear(currentLocation, testLocation, 10) ? (payloadShop.beenTo = true) : alert("Come closer to the shop and treat yourself with a warm hot chocolate😉")
+
+      // state.shops.map((shop) => {
+      //   return shop.shopName === payloadShop.shopName
+      //     ? (shop = payloadShop)
+      //     : shop;
+      // });
     },
   },
 });

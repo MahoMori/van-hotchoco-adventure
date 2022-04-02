@@ -6,7 +6,11 @@ import { SiBuymeacoffee } from "react-icons/si";
 import { GiCoffeeMug } from "react-icons/gi";
 
 // ------ TS interface ------
-import { JsonProps, MarkerProps } from "../../../assets/tsInterface";
+import {
+  JsonProps,
+  LocationProps,
+  MarkerProps,
+} from "../../../assets/tsInterface";
 
 // ------ components ------
 import FavBeenToIcons from "../../reusable-components/FavBeenToIcons";
@@ -31,6 +35,12 @@ import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
 // #######################
 
 const Marker = (vals: MarkerProps) => {
+  const shop = vals.shop as JsonProps;
+  const shopLocation: LocationProps = {
+    lat: parseFloat(vals.lat),
+    lng: parseFloat(vals.lng),
+  };
+
   // ------ is Info Window open ------
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -55,18 +65,18 @@ const Marker = (vals: MarkerProps) => {
       <InfoWindow isOpen={isOpen}>
         <div>
           <p>
-            <a href={vals.shop?.websiteUrl}>{vals.shop?.shopName}</a>
+            <a href={shop.websiteUrl}>{shop.shopName}</a>
           </p>
         </div>
 
         <ul>
-          {vals.shop?.flavours.map((flavour) => (
+          {shop.flavours.map((flavour) => (
             <li key={flavour.flavourName}>{flavour.flavourName}</li>
           ))}
         </ul>
 
         <div>
-          <FavBeenToIcons shop={vals.shop as JsonProps} kw="marker" />
+          <FavBeenToIcons shop={shop} shopLocation={shopLocation} kw="marker" />
         </div>
       </InfoWindow>
     </MarkerInfoContainer>
