@@ -46,11 +46,12 @@ export const shopSlice = createSlice({
       state,
       action: PayloadAction<[JsonProps, LocationProps]>
     ) => {
-      const payloadShop = action.payload[0];
+      let payloadShop = action.payload[0];
       const shopLocation = action.payload[1];
       const testLocation: LocationProps = { lat: 59.345635, lng: 18.059707 };
 
-      let currentLocation: LocationProps = { lat: 0, lng: 0 };
+      // let currentLocation: LocationProps = { lat: 0, lng: 0 };
+      let currentLocation: LocationProps = { ...shopLocation };
 
       const getCurrentLocation = (): void => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -75,12 +76,18 @@ export const shopSlice = createSlice({
       };
 
       if (!payloadShop.beenTo) {
-        getCurrentLocation();
-        if (arePointsNear(currentLocation, testLocation, 10)) {
-          payloadShop.beenTo = true;
+        // getCurrentLocation();
+        if (arePointsNear(currentLocation, shopLocation, 10)) {
+          console.log("before:", payloadShop);
+
+          let copiedShopObj = { ...payloadShop };
+          copiedShopObj.beenTo = true;
+
+          console.log("after:", copiedShopObj);
+
           state.shops.map((shop) => {
-            return shop.shopName === payloadShop.shopName
-              ? (shop = payloadShop)
+            return shop.shopName === copiedShopObj.shopName
+              ? (shop = copiedShopObj)
               : shop;
           });
         } else {
