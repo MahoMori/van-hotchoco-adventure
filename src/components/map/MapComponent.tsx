@@ -45,12 +45,11 @@ const MapComponent = () => {
   const [mapProps, setMapProps] = useState<MapProps>(initialMapProps);
 
   // ------ redux ------
-  const [shops, setShops] = useState<JsonProps[]>([...shopListData]);
+  // const [shops, setShops] = useState<JsonProps[]>([...shopListData]);
   const dispatch = useDispatch();
-  const shopState = useSelector((state: TStore) => state.shops);
+  const shops = useSelector((state: TStore) => state.shops.shops);
 
   useEffect(() => {
-    // setShops()
     const newList = shopListData.map((shop: JsonProps): JsonProps => {
       shop.isFav = false;
       shop.beenTo = false;
@@ -58,7 +57,7 @@ const MapComponent = () => {
     });
     dispatch(setReduxState(newList));
 
-    console.log(shopState);
+    console.log(shops);
   }, []);
 
   return (

@@ -17,6 +17,8 @@ export const InfoWindow = styled.div<{ isOpen: boolean }>`
   padding: 15px;
   background: #fff0c6;
 
+  z-index: 1;
+
   &::before {
     content: "";
     position: absolute;

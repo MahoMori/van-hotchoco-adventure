@@ -4,6 +4,9 @@ import { BiCoffeeTogo } from "react-icons/bi";
 import { SiBuymeacoffee } from "react-icons/si";
 import { GiCoffeeMug } from "react-icons/gi";
 
+import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
+import { IoStorefront, IoStorefrontOutline } from "react-icons/io5";
+
 import { MarkerProps } from "../../../assets/tsInterface";
 
 import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
@@ -30,6 +33,22 @@ const Marker = (vals: MarkerProps) => {
 
   return (
     <MarkerInfoContainer>
+      <SiBuymeacoffee
+        style={{
+          height: "50px",
+          width: "50px",
+          color: "red",
+          position: "absolute",
+          top: "100%",
+          left: "50%",
+          transform: "translate(-50%, -100%)",
+          zIndex: "-1",
+        }}
+        onClick={(): void => {
+          isOpen ? setIsOpen(false) : setIsOpen(true);
+        }}
+      ></SiBuymeacoffee>
+
       <InfoWindow isOpen={isOpen}>
         <div>
           <p>
@@ -43,23 +62,11 @@ const Marker = (vals: MarkerProps) => {
           ))}
         </ul>
 
-        <div>{/* icon */}</div>
+        <div>
+          {vals.shop?.isFav ? <BsBookmarkHeartFill /> : <BsBookmarkHeart />}
+          {vals.shop?.beenTo ? <IoStorefront /> : <IoStorefrontOutline />}
+        </div>
       </InfoWindow>
-
-      <SiBuymeacoffee
-        style={{
-          height: "50px",
-          width: "50px",
-          color: "red",
-          position: "absolute",
-          top: "100%",
-          left: "50%",
-          transform: "translate(-50%, -100%)",
-        }}
-        onClick={(): void => {
-          isOpen ? setIsOpen(false) : setIsOpen(true);
-        }}
-      ></SiBuymeacoffee>
     </MarkerInfoContainer>
   );
 };
