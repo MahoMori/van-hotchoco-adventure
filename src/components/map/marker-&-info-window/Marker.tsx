@@ -8,12 +8,13 @@ import { GiCoffeeMug } from "react-icons/gi";
 // ------ TS interface ------
 import {
   JsonProps,
-  LocationProps,
+  LocationPropsF,
   MarkerProps,
 } from "../../../assets/tsInterface";
 
 // ------ components ------
-import FavBeenToIcons from "../../reusable-components/FavBeenToIcons";
+import IsFavIcon from "../../reusable-components/IsFavIcon";
+import BeenToIcon from "../../reusable-components/BeenToIcon";
 
 // ------ styled component ------
 import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
@@ -34,11 +35,18 @@ import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
 // IoStorefront
 // #######################
 
-const Marker = (vals: MarkerProps) => {
-  const shop = vals.shop as JsonProps;
-  const shopLocation: LocationProps = {
-    lat: parseFloat(vals.lat),
-    lng: parseFloat(vals.lng),
+// vals: MarkerProps
+
+const Marker: React.VFC<MarkerProps> = ({
+  lat,
+  lng,
+  shop,
+  beenTo,
+  eachStoreId,
+}) => {
+  const shopLocation: LocationPropsF = {
+    lat: parseFloat(lat),
+    lng: parseFloat(lng),
   };
 
   // ------ is Info Window open ------
@@ -76,7 +84,14 @@ const Marker = (vals: MarkerProps) => {
         </ul>
 
         <div>
-          <FavBeenToIcons shop={shop} shopLocation={shopLocation} kw="marker" />
+          <IsFavIcon {...shop} />
+          <BeenToIcon
+            shop={shop}
+            beenTo={beenTo}
+            storeLocation={shopLocation}
+            eachStoreId={eachStoreId}
+            kw="marker"
+          />
         </div>
       </InfoWindow>
     </MarkerInfoContainer>

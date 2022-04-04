@@ -52,8 +52,16 @@ const MapComponent = () => {
 
           {shops.length > 0 &&
             shops.map((shop) => {
-              return shop.latLng.map((val) => {
-                return <Marker lat={val.lat} lng={val.lng} shop={shop} />;
+              return shop.eachStoreInfo.map((eachStore) => {
+                return (
+                  <Marker
+                    lat={eachStore.location.lat}
+                    lng={eachStore.location.lng}
+                    shop={shop}
+                    beenTo={eachStore.beenTo}
+                    eachStoreId={eachStore.eachStoreId as string}
+                  />
+                );
               });
             })}
         </GoogleMapReact>

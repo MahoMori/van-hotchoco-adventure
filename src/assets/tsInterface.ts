@@ -9,26 +9,23 @@ export interface MapProps {
 export interface MarkerProps {
   lat: string;
   lng: string;
-  shop?: JsonProps;
+  shop: JsonProps;
+  beenTo: boolean;
+  eachStoreId: string;
 }
 
 export interface JsonProps {
   shopName: string;
   flavours: { flavourName: string; taste: string }[];
-  latLng: MarkerProps[];
-  mapArea: string[];
+  eachStoreInfo: {
+    areaName: string;
+    location: { [key: string]: string };
+    beenTo: boolean;
+    eachStoreId?: string;
+  }[];
   websiteUrl: string;
   filtering: string[];
-  isFav?: boolean;
-  beenTo?: boolean;
-  // filtering: {
-  //   takeoutOnly: boolean;
-  //   limitedCafeService: boolean;
-  //   glutenFree: boolean;
-  //   dairyFree: boolean;
-  //   vegan: boolean;
-  //   openLate: boolean;
-  // };
+  isFav: boolean;
 }
 
 export interface ReduxState {
@@ -39,12 +36,14 @@ export interface MapAreaColor {
   [key: string]: string;
 }
 
-export interface LocationProps {
+export interface LocationPropsF {
   [key: string]: number;
 }
 
-export interface IconsProps {
+export interface BeenToIconProps {
   shop: JsonProps;
-  shopLocation?: LocationProps;
+  beenTo: boolean;
+  storeLocation?: LocationPropsF;
+  eachStoreId: string;
   kw: string;
 }

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { JsonProps, LocationProps, ReduxState } from "../assets/tsInterface";
+import { JsonProps, LocationPropsF, ReduxState } from "../assets/tsInterface";
+import { v4 as uuid } from "uuid";
 
 const initialState: ReduxState = {
   shops: [],
@@ -19,10 +20,13 @@ export const shopSlice = createSlice({
   reducers: {
     setReduxState: (state, action: PayloadAction<JsonProps[]>) => {
       const newPayload = action.payload.map((shop) => {
-        shop.isFav = false;
-        shop.beenTo = false;
+        shop.eachStoreInfo.map((eachStore) => {
+          eachStore.eachStoreId = uuid();
+          return eachStore;
+        });
         return shop;
       });
+
       state.shops = newPayload;
 
       console.log("state.shops: ", state.shops);
@@ -44,14 +48,16 @@ export const shopSlice = createSlice({
 
     changeBeenTo: (
       state,
-      action: PayloadAction<[JsonProps, LocationProps]>
+      action: PayloadAction<[JsonProps, LocationPropsF, string]>
     ) => {
       let payloadShop = action.payload[0];
       const shopLocation = action.payload[1];
-      const testLocation: LocationProps = { lat: 59.345635, lng: 18.059707 };
+      const payloadId = action.payload[2];
 
-      // let currentLocation: LocationProps = { lat: 0, lng: 0 };
-      let currentLocation: LocationProps = { ...shopLocation };
+      const testLocation: LocationPropsF = { lat: 59.345635, lng: 18.059707 };
+
+      // let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
+      let currentLocation: LocationPropsF = { ...shopLocation };
 
       const getCurrentLocation = (): void => {
         navigator.geolocation.getCurrentPosition((position) => {
@@ -64,8 +70,8 @@ export const shopSlice = createSlice({
       };
 
       const arePointsNear = (
-        userLocation: LocationProps,
-        hcShopLocation: LocationProps,
+        userLocation: LocationPropsF,
+        hcShopLocation: LocationPropsF,
         km: number
       ): boolean => {
         const ky = 40000 / 360;
@@ -75,41 +81,28 @@ export const shopSlice = createSlice({
         return Math.sqrt(dx * dx + dy * dy) <= km;
       };
 
-      if (!payloadShop.beenTo) {
-        // getCurrentLocation();
-        if (arePointsNear(currentLocation, shopLocation, 10)) {
-          console.log("before:", payloadShop);
+      payloadShop.eachStoreInfo.map((eachStore) => {
+        if (eachStore.eachStoreId === payloadId && !eachStore.beenTo) {
+          // getCurrentLocation();
+          if (arePointsNear(currentLocation, shopLocation, 10)) {
+            eachStore.beenTo = true;
 
-          let copiedShopObj = { ...payloadShop };
-          copiedShopObj.beenTo = true;
-
-          console.log("after:", copiedShopObj);
-
-          state.shops.map((shop) => {
-            return shop.shopName === copiedShopObj.shopName
-              ? (shop = copiedShopObj)
-              : shop;
-          });
+            state.shops.map((shop) => {
+              return shop.shopName === payloadShop.shopName
+                ? (shop = payloadShop)
+                : shop;
+            });
+          } else {
+            alert(
+              "Come closer to the shop and treat yourself with a warm hot chocolate😉"
+            );
+          }
         } else {
           alert(
-            "Come closer to the shop and treat yourself with a warm hot chocolate😉"
+            "You've already been to this place! How was their hot chocolate?"
           );
         }
-      } else {
-        alert(
-          "You've already been to this place! How was their hot chocolate?"
-        );
-      }
-
-      // payloadShop.beenTo
-      //   ? alert("You've already been to this place! How was their hot chocolate?")
-      //   : arePointsNear(currentLocation, testLocation, 10) ? (payloadShop.beenTo = true) : alert("Come closer to the shop and treat yourself with a warm hot chocolate😉")
-
-      // state.shops.map((shop) => {
-      //   return shop.shopName === payloadShop.shopName
-      //     ? (shop = payloadShop)
-      //     : shop;
-      // });
+      });
     },
   },
 });

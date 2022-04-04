@@ -11,7 +11,8 @@ import { TStore } from "../../redux/store";
 import { mapAreaColor } from "../../assets/styleVariables";
 
 // ------ components ------
-import FavBeenToIcons from "../reusable-components/FavBeenToIcons";
+import IsFavIcon from "../reusable-components/IsFavIcon";
+import BeenToIcon from "../reusable-components/BeenToIcon";
 
 // #######################
 // shopName
@@ -59,13 +60,21 @@ const ShopList = () => {
             </ul>
 
             <div>
-              <FavBeenToIcons shop={shop} kw="shop-list" />
+              <IsFavIcon {...shop} />
               <HiOutlineExternalLink />
             </div>
 
             <div>
-              {shop.mapArea.map((area) => (
-                <p key={area}>{area}</p>
+              {shop.eachStoreInfo.map((eachStore) => (
+                <div key={eachStore.eachStoreId}>
+                  <p>{eachStore.areaName}</p>
+                  <BeenToIcon
+                    shop={shop}
+                    beenTo={eachStore.beenTo}
+                    eachStoreId={eachStore.eachStoreId as string}
+                    kw="shop-list"
+                  />
+                </div>
               ))}
             </div>
           </div>

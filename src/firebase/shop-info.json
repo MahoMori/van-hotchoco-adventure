@@ -11,15 +11,25 @@
         "taste": "Milk tea hot chocolate made with 66% dark chocolate and house-made brown sugar tea reduction."
       }
     ],
-    "latLng": [
-      { "lat": "49.258822", "lng": "-123.100979" },
-      { "lat": "49.268278", "lng": "-123.154017" },
-      { "lat": "49.285412", "lng": "-123.123329" }
-    ],
-    "mapArea": [
-      "Downtown Vancouver",
-      "Mount Pleasant / East Vancouver",
-      "South Granville / Kitsilano"
+    "eachStoreInfo": [
+      {
+        "areaName": "Mount Pleasant / East Vancouver",
+        "location": { "lat": "49.258822", "lng": "-123.100979" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "South Granville / Kitsilano",
+        "location": { "lat": "49.268278", "lng": "-123.154017" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Downtown Vancouver",
+        "location": { "lat": "49.285412", "lng": "-123.123329" },
+        "isFav": false,
+        "beenTo": false
+      }
     ],
     "websiteUrl": "https://hotchocolatefest.com/49-parallel",
     "filtering": ["takeoutOnly"]
@@ -41,8 +51,14 @@
         "taste": "Tabasco meets Caesar spices in a Caesar-rimmed cup of hot chocolate garnished with white chocolate chantilly and  rose petals."
       }
     ],
-    "latLng": [{ "lat": "49.2727314", "lng": "-123.1352742" }],
-    "mapArea": ["South Granville / Kitsilano"],
+    "eachStoreInfo": [
+      {
+        "areaName": "South Granville / Kitsilano",
+        "location": { "lat": "49.2727314", "lng": "-123.1352742" },
+        "isFav": false,
+        "beenTo": false
+      }
+    ],
     "websiteUrl": "https://hotchocolatefest.com/%C3%A0-la-mode-pie-caf%C3%A9-1",
     "filtering": ["takeoutOnly"]
   },
@@ -59,26 +75,73 @@
         "taste": "Salted chocolate syrup, miso powder, Vancouver Island salt, Callebaut pearls, caramel sugar."
       }
     ],
-    "latLng": [
-      { "lat": "49.248942", "lng": "-123.100634" },
-      { "lat": "49.345090", "lng": "-123.094380" },
-      { "lat": "49.283630", "lng": "-123.120390" },
-      { "lat": "49.285940", "lng": "-123.116830" },
-      { "lat": "49.234320", "lng": "-123.157330" },
-      { "lat": "49.263270", "lng": "-123.107110" },
-      { "lat": "49.309506", "lng": "-123.079409" },
-      { "lat": "49.325657", "lng": "-123.142251" },
-      { "lat": "49.281276", "lng": "-123.007391" },
-      { "lat": "49.196388", "lng": "-123.139262" },
-      { "lat": "50.119125", "lng": "-122.956456" }
-    ],
-    "mapArea": [
-      "Westside / Kerrisdale",
-      "North Vancouver / West Vancouver",
-      "Downtown Vancouver",
-      "Burnaby",
-      "Mount Pleasant / East Vancouver",
-      "Richmond"
+    "eachStoreInfo": [
+      {
+        "areaName": "Mount Pleasant / East Vancouver",
+        "location": { "lat": "49.248942", "lng": "-123.100634" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "North Vancouver / West Vancouver",
+        "location": { "lat": "49.345090", "lng": "-123.094380" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Downtown Vancouver",
+        "location": { "lat": "49.283630", "lng": "-123.120390" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Downtown Vancouver",
+        "location": { "lat": "49.285940", "lng": "-123.116830" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Westside / Kerrisdale",
+        "location": { "lat": "49.234320", "lng": "-123.157330" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Mount Pleasant / East Vancouver",
+        "location": { "lat": "49.263270", "lng": "-123.107110" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "North Vancouver / West Vancouver",
+        "location": { "lat": "49.309506", "lng": "-123.079409" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "North Vancouver / West Vancouver",
+        "location": { "lat": "49.325657", "lng": "-123.142251" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Burnaby",
+        "location": { "lat": "49.281276", "lng": "-123.007391" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Richmond",
+        "location": { "lat": "49.196388", "lng": "-123.139262" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "Whistler",
+        "location": { "lat": "50.119125", "lng": "-122.956456" },
+        "isFav": false,
+        "beenTo": false
+      }
     ],
     "websiteUrl": "https://hotchocolatefest.com/artigiano",
     "filtering": ["limitedCafeService", "openLate"]
@@ -96,8 +159,14 @@
         "taste": "Caramelized honey butter sauce blended into Valrhona Dulcey 35% blond chocolate."
       }
     ],
-    "latLng": [{ "lat": "", "lng": "" }],
-    "mapArea": ["South Granville / Kitsilano"],
+    "eachStoreInfo": [
+      {
+        "areaName": "South Granville / Kitsilano",
+        "location": { "lat": "", "lng": "" },
+        "isFav": false,
+        "beenTo": false
+      }
+    ],
     "websiteUrl": "https://hotchocolatefest.com/beaucoup-bakery",
     "filtering": ["takeoutOnly"]
   },
@@ -114,8 +183,20 @@
         "taste": "A blend of hot chocolate and peanut butter."
       }
     ],
-    "latLng": [{ "lat": "", "lng": "" }],
-    "mapArea": ["Downtown Vancouver", "South Granville / Kitsilano"],
+    "eachStoreInfo": [
+      {
+        "areaName": "Downtown Vancouver",
+        "location": { "lat": "", "lng": "" },
+        "isFav": false,
+        "beenTo": false
+      },
+      {
+        "areaName": "South Granville / Kitsilano",
+        "location": { "lat": "", "lng": "" },
+        "isFav": false,
+        "beenTo": false
+      }
+    ],
     "websiteUrl": "https://hotchocolatefest.com/bel-cafe",
     "filtering": ["limitedCafeService"]
   },
@@ -136,8 +217,14 @@
         "taste": "Dark hot chocolate married with orange/cinnamon dates and topped with cream Amarena cherry and merengue crumble."
       }
     ],
-    "latLng": [{ "lat": "", "lng": "" }],
-    "mapArea": ["Downtown Vancouver"],
+    "eachStoreInfo": [
+      {
+        "areaName": "Downtown Vancouver",
+        "location": { "lat": "", "lng": "" },
+        "isFav": false,
+        "beenTo": false
+      }
+    ],
     "websiteUrl": "https://hotchocolatefest.com/bellaggio-cafe",
     "filtering": ["limitedCafeService", "openLate"]
   },
@@ -154,8 +241,14 @@
         "taste": "Strawberry hot chocolate made with rich dark chocolate and fresh strawberry puree."
       }
     ],
-    "latLng": [{ "lat": "", "lng": "" }],
-    "mapArea": ["Mount Pleasant / East Vancouver"],
+    "eachStoreInfo": [
+      {
+        "areaName": "Mount Pleasant / East Vancouver",
+        "location": { "lat": "", "lng": "" },
+        "isFav": false,
+        "beenTo": false
+      }
+    ],
     "websiteUrl": "https://hotchocolatefest.com/bench-bakehouse",
     "filtering": ["takeoutOnly", "dairyFree"]
   },
@@ -172,8 +265,14 @@
         "taste": "Caramelized honey butter sauce blended into Valrhona Dulcey 35% blond chocolate."
       }
     ],
-    "latLng": [{ "lat": "", "lng": "" }],
-    "mapArea": ["South Granville / Kitsilano"],
+    "eachStoreInfo": [
+      {
+        "areaName": "South Granville / Kitsilano",
+        "location": { "lat": "", "lng": "" },
+        "isFav": false,
+        "beenTo": false
+      }
+    ],
     "websiteUrl": "https://hotchocolatefest.com/beaucoup-bakery",
     "filtering": ["takeoutOnly"]
   }
