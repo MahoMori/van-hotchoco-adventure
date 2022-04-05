@@ -4,14 +4,6 @@ import { v4 as uuid } from "uuid";
 
 const initialState: ReduxState = {
   shops: [],
-  //   shopName: "",
-  //   flavours: [],
-  //   latLng: [],
-  //   mapArea: [],
-  //   websiteUrl: "",
-  //   filtering: [],
-  //   isFav: false,
-  //   beenTo: false,
 };
 
 export const shopSlice = createSlice({
@@ -33,13 +25,15 @@ export const shopSlice = createSlice({
     },
 
     changeIsFav: (state, action: PayloadAction<JsonProps>) => {
-      const payloadShop = action.payload;
+      const payloadShop: JsonProps = { ...action.payload };
 
       payloadShop.isFav
         ? (payloadShop.isFav = false)
         : (payloadShop.isFav = true);
 
-      state.shops.map((shop) => {
+      console.log(payloadShop);
+
+      state.shops = state.shops.map((shop) => {
         return shop.shopName === payloadShop.shopName
           ? (shop = payloadShop)
           : shop;
@@ -50,9 +44,9 @@ export const shopSlice = createSlice({
       state,
       action: PayloadAction<[JsonProps, LocationPropsF, string]>
     ) => {
-      let payloadShop = action.payload[0];
-      const shopLocation = action.payload[1];
-      const payloadId = action.payload[2];
+      let payloadShop: JsonProps = { ...action.payload[0] };
+      const shopLocation: LocationPropsF = action.payload[1];
+      const payloadId: string = action.payload[2];
 
       const testLocation: LocationPropsF = { lat: 59.345635, lng: 18.059707 };
 
@@ -81,28 +75,37 @@ export const shopSlice = createSlice({
         return Math.sqrt(dx * dx + dy * dy) <= km;
       };
 
-      payloadShop.eachStoreInfo.map((eachStore) => {
-        if (eachStore.eachStoreId === payloadId && !eachStore.beenTo) {
-          // getCurrentLocation();
-          if (arePointsNear(currentLocation, shopLocation, 10)) {
-            eachStore.beenTo = true;
+      // getCurrentLocation();
 
-            state.shops.map((shop) => {
-              return shop.shopName === payloadShop.shopName
-                ? (shop = payloadShop)
-                : shop;
-            });
-          } else {
-            alert(
-              "Come closer to the shop and treat yourself with a warm hot chocolate😉"
-            );
+      if (arePointsNear(currentLocation, shopLocation, 10)) {
+        const newEachStoreInfo = payloadShop.eachStoreInfo.map((eachStore) => {
+          let newEachStore = { ...eachStore };
+
+          if (newEachStore.eachStoreId === payloadId) {
+            if (!newEachStore.beenTo) {
+              newEachStore.beenTo = true;
+            } else {
+              alert(
+                "You've already been to this place! How was their hot chocolate?😋"
+              );
+            }
           }
-        } else {
-          alert(
-            "You've already been to this place! How was their hot chocolate?"
-          );
-        }
-      });
+
+          return newEachStore;
+        });
+
+        payloadShop.eachStoreInfo = newEachStoreInfo;
+
+        state.shops = state.shops.map((shop) => {
+          return shop.shopName === payloadShop.shopName
+            ? (shop = payloadShop)
+            : shop;
+        });
+      } else {
+        alert(
+          "Come closer to the shop and treat yourself with a warm hot chocolate😉"
+        );
+      }
     },
   },
 });

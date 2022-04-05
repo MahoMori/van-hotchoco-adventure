@@ -11,7 +11,7 @@ import UserGuide from "./components/user-guide/UserGuide";
 import shopListData from "./firebase/shop-info.json";
 
 // ------ redux ------
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setReduxState } from "./redux/shopSlice";
 
 // ------ TS interface ------
@@ -19,21 +19,18 @@ import { JsonProps } from "./assets/tsInterface";
 
 // ------ upload json data to firebase ------
 import FirebaseUploader from "./firebase/firebase.uploader";
+import { TStore } from "./redux/store";
 
 function App() {
   // ------ redux ------
   const dispatch = useDispatch();
-  // const shops = useSelector((state: TStore) => state.shops.shops);
+  const shops = useSelector((state: TStore) => state.shops.shops);
 
   useEffect(() => {
-    const newList = shopListData.map((shop: JsonProps): JsonProps => {
-      shop.isFav = false;
-      shop.beenTo = false;
-      return shop;
-    });
-    dispatch(setReduxState(newList));
+    // console.log("shopListData: ", shopListData);
 
-    // console.log(shops);
+    dispatch(setReduxState(shopListData));
+    console.log("shops: ", shops);
   }, []);
 
   return (

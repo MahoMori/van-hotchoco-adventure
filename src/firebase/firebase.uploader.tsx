@@ -13,15 +13,21 @@ import { JsonProps } from "../assets/tsInterface";
 const FirebaseUploader = () => {
   const writeShopInfo = async (...args: JsonProps[]) => {
     try {
-      const { shopName, flavours, latLng, mapArea, websiteUrl, filtering } =
-        args[0];
+      const {
+        shopName,
+        flavours,
+        eachStoreInfo,
+        websiteUrl,
+        filtering,
+        isFav,
+      } = args[0];
       await addDoc(collection(db, "shop-info"), {
         shopName,
         flavours,
-        latLng,
-        mapArea,
+        eachStoreInfo,
         websiteUrl,
         filtering,
+        isFav,
       });
     } catch {
       console.log("Something went wrong.");
