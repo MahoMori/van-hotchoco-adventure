@@ -45,22 +45,35 @@ export const shopSlice = createSlice({
       action: PayloadAction<[JsonProps, LocationPropsF, string]>
     ) => {
       let payloadShop: JsonProps = { ...action.payload[0] };
-      const shopLocation: LocationPropsF = action.payload[1];
+      // const shopLocation: LocationPropsF = action.payload[1];
+      const shopLocation: LocationPropsF = {
+        lat: 49.217789,
+        lng: -123.060396,
+      };
+
       const payloadId: string = action.payload[2];
 
-      const testLocation: LocationPropsF = { lat: 59.345635, lng: 18.059707 };
+      let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
+      // let currentLocation: LocationPropsF = {
+      //   lat: 49.2177376,
+      //   lng: -123.0604381,
+      // };
+      // let currentLocation: LocationPropsF = { ...shopLocation };
 
-      // let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
-      let currentLocation: LocationPropsF = { ...shopLocation };
+      let result: boolean = false;
 
       const getCurrentLocation = (): void => {
         navigator.geolocation.getCurrentPosition((position) => {
-          // console.log("current latitude: ",position.coords.latitude);
-          // console.log("current longitude: ",position.coords.longitude);
-
           currentLocation.lat = position.coords.latitude;
           currentLocation.lng = position.coords.longitude;
+
+          console.log("inside getCurrentPosition", currentLocation);
+
+          result = arePointsNear(currentLocation, shopLocation, 10);
+
+          console.log("inside getCurrentPosition", result);
         });
+        console.log("outside getCurrentPosition", currentLocation);
       };
 
       const arePointsNear = (
@@ -77,7 +90,7 @@ export const shopSlice = createSlice({
 
       // getCurrentLocation();
 
-      if (arePointsNear(currentLocation, shopLocation, 10)) {
+      if (arePointsNear(currentLocation, shopLocation, 0.1)) {
         const newEachStoreInfo = payloadShop.eachStoreInfo.map((eachStore) => {
           let newEachStore = { ...eachStore };
 
