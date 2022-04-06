@@ -46,32 +46,28 @@ export const shopSlice = createSlice({
     ) => {
       let payloadShop: JsonProps = { ...action.payload[0] };
       // const shopLocation: LocationPropsF = action.payload[1];
+      const payloadId: string = action.payload[2];
+
+      // ---- close to current location ----
       const shopLocation: LocationPropsF = {
         lat: 49.217789,
         lng: -123.060396,
       };
 
-      const payloadId: string = action.payload[2];
-
       let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
+      // ---- current location ----
       // let currentLocation: LocationPropsF = {
       //   lat: 49.2177376,
       //   lng: -123.0604381,
       // };
-      // let currentLocation: LocationPropsF = { ...shopLocation };
 
-      let result: boolean = false;
-
+      // ----- helper functions -----
       const getCurrentLocation = (): void => {
         navigator.geolocation.getCurrentPosition((position) => {
           currentLocation.lat = position.coords.latitude;
           currentLocation.lng = position.coords.longitude;
 
           console.log("inside getCurrentPosition", currentLocation);
-
-          result = arePointsNear(currentLocation, shopLocation, 10);
-
-          console.log("inside getCurrentPosition", result);
         });
         console.log("outside getCurrentPosition", currentLocation);
       };
@@ -87,8 +83,9 @@ export const shopSlice = createSlice({
         const dy = Math.abs(hcShopLocation.lat - userLocation.lat) * ky;
         return Math.sqrt(dx * dx + dy * dy) <= km;
       };
+      // ----- -----
 
-      // getCurrentLocation();
+      getCurrentLocation();
 
       if (arePointsNear(currentLocation, shopLocation, 0.1)) {
         const newEachStoreInfo = payloadShop.eachStoreInfo.map((eachStore) => {
