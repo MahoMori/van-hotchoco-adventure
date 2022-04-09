@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonProps, LocationPropsF, ReduxState } from "../assets/tsInterface";
 import { v4 as uuid } from "uuid";
 
@@ -8,11 +8,87 @@ interface optionsParams {
   maximumAge: number;
 }
 
-const getCoordinates = (options: optionsParams) => {
+const getCoordinates = (options?: optionsParams) => {
   return new Promise((resolve, reject) =>
     navigator.geolocation.getCurrentPosition(resolve, reject, options)
   );
 };
+
+const arePointsNear = (
+  userLocation: LocationPropsF,
+  hcShopLocation: LocationPropsF,
+  km: number
+): boolean => {
+  const ky = 40000 / 360;
+  const kx = Math.cos((Math.PI * hcShopLocation.lat) / 180.0) * ky;
+  const dx = Math.abs(hcShopLocation.lng - userLocation.lng) * kx;
+  const dy = Math.abs(hcShopLocation.lat - userLocation.lat) * ky;
+
+  return Math.sqrt(dx * dx + dy * dy) <= km;
+};
+
+// First, create the thunk
+export const changeBeenTo = createAsyncThunk(
+  "shops/changeBeenToStatus",
+  async (payload: [JsonProps, LocationPropsF, string], thunkAPI) => {
+    const payloadShop: JsonProps = payload[0];
+    // const shopLocation: LocationPropsF = payload[1];
+    const payloadId: string = payload[2];
+
+    // ---- close to current location ----
+    // const shopLocation: LocationPropsF = {
+    //   lat: 49.2177522,
+    //   lng: -123.0604064
+    // };
+
+    // ---- close to library ----
+    const shopLocation: LocationPropsF = {
+      lat: 49.2785417,
+      lng: -123.0999191,
+    };
+
+    let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
+    // ---- current location ----
+    // let currentLocation: LocationPropsF = {
+    //   lat: 49.2177376,
+    //   lng: -123.0604381,
+    // };
+
+    let result: boolean = false;
+
+    // ----- helper functions -----
+    const options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+
+    try {
+      const position: any = await getCoordinates(options);
+      currentLocation.lat = position.coords.latitude;
+      currentLocation.lng = position.coords.longitude;
+
+      result = arePointsNear(currentLocation, shopLocation, 1.5);
+      console.log("I'll get printed first", currentLocation, result);
+
+      /*
+        sorry, I have now changed the way the error is being handled,
+        this catch should now be able to handle location that timeout
+        after 5 seconds of searching for user's location.
+      */
+    } catch (err: any) {
+      throw new Error(`Unable to get current location (${err.message})`);
+    }
+
+    console.log("outside getCurrentPosition", currentLocation);
+
+    return {
+      shop: payloadShop,
+      shopId: payloadId,
+      result,
+    };
+  }
+);
 
 const initialState: ReduxState = {
   shops: [],
@@ -51,109 +127,37 @@ export const shopSlice = createSlice({
           : shop;
       });
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(changeBeenTo.fulfilled, (state, action) => {
+      const shopToUpdate = state.shops.find(
+        (shop) => shop.shopName === action.payload.shop.shopName
+      );
 
-    changeBeenTo: (
-      state,
-      action: PayloadAction<[JsonProps, LocationPropsF, string]>
-    ) => {
-      let payloadShop: JsonProps = { ...action.payload[0] };
-      // const shopLocation: LocationPropsF = action.payload[1];
-      const payloadId: string = action.payload[2];
-
-      // ---- close to current location ----
-      const shopLocation: LocationPropsF = {
-        lat: 49.2177522,
-        lng: -123.0604064,
-      };
-
-      let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
-      // ---- current location ----
-      // let currentLocation: LocationPropsF = {
-      //   lat: 49.2177376,
-      //   lng: -123.0604381,
-      // };
-
-      let result: boolean = false;
-
-      // ----- helper functions -----
-      const getCurrentLocation = async () => {
-        const options = {
-          enableHighAccuracy: true,
-          timeout: 5000,
-          maximumAge: 0,
-        };
-
-        try {
-          const position: any = await getCoordinates(options);
-          currentLocation.lat = position.coords.latitude;
-          currentLocation.lng = position.coords.longitude;
-
-          result = arePointsNear(currentLocation, shopLocation, 0.1);
-          console.log("I'll get printed first", currentLocation, result);
-        } catch (err: unknown) {
-          if (err instanceof Error) {
-            return {
-              message: `Unable to get current location (${err.message})`,
-            };
+      if (action.payload.result && shopToUpdate) {
+        const eachStore = shopToUpdate.eachStoreInfo.find(
+          (store) => store.eachStoreId === action.payload.shopId
+        );
+        if (eachStore) {
+          if (!eachStore.beenTo) {
+            eachStore.beenTo = true;
+            console.log(eachStore.beenTo);
+          } else {
+            alert(
+              "You've already been to this place! How was their hot chocolate?😋"
+            );
+            console.log(eachStore.beenTo);
           }
         }
-
-        console.log("outside getCurrentPosition", currentLocation);
-        changeStateOrAlert();
-      };
-
-      const arePointsNear = (
-        userLocation: LocationPropsF,
-        hcShopLocation: LocationPropsF,
-        km: number
-      ): boolean => {
-        const ky = 40000 / 360;
-        const kx = Math.cos((Math.PI * hcShopLocation.lat) / 180.0) * ky;
-        const dx = Math.abs(hcShopLocation.lng - userLocation.lng) * kx;
-        const dy = Math.abs(hcShopLocation.lat - userLocation.lat) * ky;
-        return Math.sqrt(dx * dx + dy * dy) <= km;
-      };
-
-      const changeStateOrAlert = () => {
-        if (result) {
-          const newEachStoreInfo = payloadShop.eachStoreInfo.map(
-            (eachStore) => {
-              let newEachStore = { ...eachStore };
-
-              if (newEachStore.eachStoreId === payloadId) {
-                if (!newEachStore.beenTo) {
-                  newEachStore.beenTo = true;
-                } else {
-                  alert(
-                    "You've already been to this place! How was their hot chocolate?😋"
-                  );
-                }
-              }
-
-              return newEachStore;
-            }
-          );
-
-          payloadShop.eachStoreInfo = newEachStoreInfo;
-
-          state.shops = state.shops.map((shop) => {
-            return shop.shopName === payloadShop.shopName
-              ? (shop = payloadShop)
-              : shop;
-          });
-        } else {
-          alert(
-            "Come closer to the shop and treat yourself with a warm hot chocolate😉"
-          );
-        }
-      };
-      // ----- -----
-
-      getCurrentLocation();
-    },
+      } else {
+        alert(
+          "Come closer to the shop and treat yourself with a warm hot chocolate😉"
+        );
+      }
+    });
   },
 });
 
-export const { setReduxState, changeIsFav, changeBeenTo } = shopSlice.actions;
+export const { setReduxState, changeIsFav } = shopSlice.actions;
 
 export default shopSlice.reducer;
