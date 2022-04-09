@@ -36,6 +36,10 @@ export interface MapAreaColor {
   [key: string]: string;
 }
 
+export interface MapAreaClicked {
+  [key: string]: boolean;
+}
+
 export interface LocationPropsF {
   [key: string]: number;
 }
