@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // ------ google map react ------
 import GoogleMapReact from "google-map-react";
 
+// ------ json data ------
+import shopListData from "../../firebase/shop-info.json";
+
 // ------ redux ------
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ TS interface ------
@@ -16,6 +19,7 @@ import Marker from "./marker-&-info-window/Marker";
 // ------ styled component ------
 import { GoogleMapContainer } from "./MapComponent.style";
 import { Section } from "../../assets/styleVariables";
+import { setReduxState } from "../../redux/shopSlice";
 
 // ------ google map initial props ------
 const initialMapProps: MapProps = {
@@ -42,7 +46,16 @@ const MapComponent = () => {
   const [mapProps, setMapProps] = useState<MapProps>(initialMapProps);
 
   // ------ redux ------
+  // ------ redux ------
+  // const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
+
+  // useEffect(() => {
+  //   if (!(shops.length > 0)) {
+  //     dispatch(setReduxState(shopListData));
+  //     console.log("shops: ", shops);
+  //   }
+  // }, []);
 
   return (
     <Section>

@@ -29,7 +29,7 @@ function App() {
   const shops = useSelector((state: TStore) => state.shops.shops);
 
   useEffect(() => {
-    // console.log("shopListData: ", shopListData);
+    console.log("shopListData: ", shopListData);
 
     dispatch(setReduxState(shopListData));
     console.log("shops: ", shops);

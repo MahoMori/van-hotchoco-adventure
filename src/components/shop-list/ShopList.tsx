@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+
+// ------ json data ------
+import shopListData from "../../firebase/shop-info.json";
 
 // ------ redux ------
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ TS interface ------
@@ -19,16 +22,24 @@ import {
   ShopListSection,
   ListContainer,
 } from "./ShopList.style";
+import { setReduxState } from "../../redux/shopSlice";
 
 const ShopList = () => {
   // ------ redux ------
+  // const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
 
-  // ------ button color style change ------
-  // const [clicked, setClicked] =
+  useEffect(() => {
+    // if (!(shops.length > 0)) {
+    //   dispatch(setReduxState(shopListData));
+    setFillteredShops(shopListData);
+    //   console.log("shops: ", shops);
+    // }
+  }, []);
 
   // ------ filter ------
-  const [filteredShops, setFillteredShops] = useState<JsonProps[]>(shops);
+  const [filteredShops, setFillteredShops] =
+    useState<JsonProps[]>(shopListData);
   const [clickedButton, setClickedButton] = useState<string>("All");
 
   const filterShops = (area: string) => {

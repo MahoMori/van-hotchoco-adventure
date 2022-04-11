@@ -36,16 +36,16 @@ export const changeBeenTo = createAsyncThunk(
     const payloadId: string = payload[2];
 
     // ---- close to current location ----
-    // const shopLocation: LocationPropsF = {
-    //   lat: 49.2177522,
-    //   lng: -123.0604064
-    // };
+    const shopLocation: LocationPropsF = {
+      lat: 49.2177522,
+      lng: -123.0604064,
+    };
 
     // ---- close to library ----
-    const shopLocation: LocationPropsF = {
-      lat: 49.2785417,
-      lng: -123.0999191,
-    };
+    // const shopLocation: LocationPropsF = {
+    //   lat: 49.2785417,
+    //   lng: -123.0999191,
+    // };
 
     let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
     // ---- current location ----
@@ -70,12 +70,6 @@ export const changeBeenTo = createAsyncThunk(
 
       result = arePointsNear(currentLocation, shopLocation, 1.5);
       console.log("I'll get printed first", currentLocation, result);
-
-      /*
-        sorry, I have now changed the way the error is being handled,
-        this catch should now be able to handle location that timeout
-        after 5 seconds of searching for user's location.
-      */
     } catch (err: any) {
       throw new Error(`Unable to get current location (${err.message})`);
     }
@@ -141,11 +135,6 @@ export const shopSlice = createSlice({
         if (eachStore) {
           if (!eachStore.beenTo) {
             eachStore.beenTo = true;
-            console.log(eachStore.beenTo);
-          } else {
-            alert(
-              "You've already been to this place! How was their hot chocolate?😋"
-            );
             console.log(eachStore.beenTo);
           }
         }

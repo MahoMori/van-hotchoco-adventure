@@ -24,7 +24,13 @@ const FavBeenToIcons: React.VFC<BeenToIconProps> = ({
   return (
     <>
       {beenTo ? (
-        <IoStorefront />
+        <IoStorefront
+          onClick={() =>
+            alert(
+              "You've already been to this place! How was their hot chocolate?😋"
+            )
+          }
+        />
       ) : (
         <IoStorefrontOutline
           onClick={() => {
