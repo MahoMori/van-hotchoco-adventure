@@ -13,6 +13,11 @@ import { MapProps } from "../../assets/tsInterface";
 // ------ components ------
 import Marker from "./marker-&-info-window/Marker";
 
+// ------ styled component ------
+import { GoogleMapContainer } from "./MapComponent.style";
+import { Section } from "../../assets/styleVariables";
+
+// ------ google map initial props ------
 const initialMapProps: MapProps = {
   center: {
     lat: 49.27389842076915,
@@ -40,16 +45,13 @@ const MapComponent = () => {
   const shops = useSelector((state: TStore) => state.shops.shops);
 
   return (
-    <section>
-      <div style={{ width: "50vw", height: "50vh" }}>
+    <Section>
+      <GoogleMapContainer>
         <GoogleMapReact
           bootstrapURLKeys={{ key: API_KEY as string }}
           center={mapProps.center}
           zoom={mapProps.zoom}
         >
-          {/* <Marker lat="49.258822" lng="-123.100979" />
-          <Marker lat="49.248942" lng="-123.100634" /> */}
-
           {shops.length > 0 &&
             shops.map((shop) => {
               return shop.eachStoreInfo.map((eachStore) => {
@@ -57,6 +59,7 @@ const MapComponent = () => {
                   <Marker
                     lat={eachStore.location.lat}
                     lng={eachStore.location.lng}
+                    areaName={eachStore.areaName}
                     shop={shop}
                     beenTo={eachStore.beenTo}
                     eachStoreId={eachStore.eachStoreId as string}
@@ -65,8 +68,8 @@ const MapComponent = () => {
               });
             })}
         </GoogleMapReact>
-      </div>
-    </section>
+      </GoogleMapContainer>
+    </Section>
   );
 };
 

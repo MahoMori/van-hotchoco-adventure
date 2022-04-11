@@ -14,3 +14,11 @@ export const mapAreaColor: MapAreaColor = {
   Whistler: "#FF5349",
   "Tri-Cities": "#88CA5E",
 };
+
+export const Section = styled.section`
+  width: 95%;
+  background: #fff;
+  margin: 0 auto;
+  border: solid #84563c 2px;
+  box-shadow: 0.3rem 0.4rem #84563c;
+`;

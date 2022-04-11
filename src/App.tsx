@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
-import "./App.css";
+import React, { useEffect, useState } from "react";
 
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useLocation, useParams } from "react-router-dom";
 
 import MapComponent from "./components/map/MapComponent";
 import ShopList from "./components/shop-list/ShopList";
@@ -21,6 +20,9 @@ import { JsonProps } from "./assets/tsInterface";
 import FirebaseUploader from "./firebase/firebase.uploader";
 import { TStore } from "./redux/store";
 
+// ------ styled component ------
+import { Footer, Nav, StyledLink, Title } from "./App.style";
+
 function App() {
   // ------ redux ------
   const dispatch = useDispatch();
@@ -33,10 +35,18 @@ function App() {
     console.log("shops: ", shops);
   }, []);
 
+  // ------ change nav color depending on page showing ------
+  const location = useLocation();
+  const [page, setPage] = useState<string>(location.pathname);
+
+  useEffect(() => {
+    setPage(location.pathname);
+  }, [location]);
+
   return (
     <div className="App">
       <header>
-        <h1>Vancouver Hot Chocolate Adventure 2022</h1>
+        <Title>Vancouver Hot&nbsp;Chocolate Adventure 2022</Title>
       </header>
 
       <main>
@@ -49,10 +59,17 @@ function App() {
         </Routes>
       </main>
 
-      <footer>
-        <nav>
-          <Link to="/">Map</Link>
-          <Link to="/shop-list">Shop List</Link>
+      <Footer>
+        <Nav>
+          <StyledLink to="/" isOnPage={page === "/" ? true : false}>
+            Map
+          </StyledLink>
+          <StyledLink
+            to="/shop-list"
+            isOnPage={page === "/shop-list" ? true : false}
+          >
+            Shop List
+          </StyledLink>
           <a
             href="https://hotchocolatefest.com/"
             target="_blank"
@@ -60,9 +77,14 @@ function App() {
           >
             Official Website
           </a>
-          <Link to="/user-guide">User Guide</Link>
-        </nav>
-      </footer>
+          <StyledLink
+            to="/user-guide"
+            isOnPage={page === "/user-guide" ? true : false}
+          >
+            User Guide
+          </StyledLink>
+        </Nav>
+      </Footer>
     </div>
   );
 }

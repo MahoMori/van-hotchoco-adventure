@@ -1,89 +1,85 @@
 import React, { useState } from "react";
 
 // ------ icon ------
-import { BiCoffeeTogo } from "react-icons/bi";
-import { SiBuymeacoffee } from "react-icons/si";
-import { GiCoffeeMug } from "react-icons/gi";
+import { HiOutlineExternalLink } from "react-icons/hi";
 
 // ------ TS interface ------
-import {
-  JsonProps,
-  LocationPropsF,
-  MarkerProps,
-} from "../../../assets/tsInterface";
+import { LocationPropsF, MarkerProps } from "../../../assets/tsInterface";
 
 // ------ components ------
 import IsFavIcon from "../../reusable-components/IsFavIcon";
 import BeenToIcon from "../../reusable-components/BeenToIcon";
 
 // ------ styled component ------
-import { MarkerInfoContainer, InfoWindow } from "./Marker.style";
-
-// #######################
-// shopName
-// flavours.flavourName
-// websiteUrl
-
-// favourite button
-// BsBookmarkHeartFill
-// BsBookmarkHeart
-// RiHeartsFill
-// RiHeartsLine
-
-// been to button
-// IoStorefrontOutline
-// IoStorefront
-// #######################
-
-// vals: MarkerProps
+import {
+  MarkerInfoContainer,
+  InfoWindow,
+  MarkerIcon,
+  ShopName,
+  FlavourList,
+  IconContainer,
+} from "./Marker.style";
+import { mapAreaColor } from "../../../assets/styleVariables";
 
 const Marker: React.VFC<MarkerProps> = ({
   lat,
   lng,
+  areaName,
   shop,
   beenTo,
   eachStoreId,
 }) => {
+  // ------ set shop location ------
   const shopLocation: LocationPropsF = {
     lat: parseFloat(lat),
     lng: parseFloat(lng),
   };
 
+  // ------ set area color ------
+  const areaColor: string = mapAreaColor[areaName];
+
   // ------ is Info Window open ------
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const handleClick = (className: string) => {
+    const childElem: HTMLElement | null = document.querySelector(className);
+    const parentElem = childElem?.parentElement;
+
+    console.log(parentElem);
+
+    if (isOpen) {
+      (parentElem as HTMLElement).style.zIndex = "0";
+      setIsOpen(false);
+    } else {
+      (parentElem as HTMLElement).style.zIndex = "100";
+      setIsOpen(true);
+    }
+  };
+
   return (
-    <MarkerInfoContainer>
-      <SiBuymeacoffee
-        style={{
-          height: "50px",
-          width: "50px",
-          color: "red",
-          position: "absolute",
-          top: "100%",
-          left: "50%",
-          transform: "translate(-50%, -100%)",
-          zIndex: "-1",
-        }}
+    <MarkerInfoContainer className={`child-${eachStoreId}`}>
+      <MarkerIcon
+        markerColor={areaColor}
         onClick={(): void => {
-          isOpen ? setIsOpen(false) : setIsOpen(true);
+          handleClick(`.child-${eachStoreId}`);
         }}
-      ></SiBuymeacoffee>
+      ></MarkerIcon>
 
       <InfoWindow isOpen={isOpen}>
-        <div>
-          <p>
-            <a href={shop.websiteUrl}>{shop.shopName}</a>
-          </p>
-        </div>
+        <ShopName>
+          <a href={shop.websiteUrl}>
+            {shop.shopName}
+            <HiOutlineExternalLink />
+          </a>
+        </ShopName>
 
-        <ul>
+        <FlavourList>
           {shop.flavours.map((flavour) => (
             <li key={flavour.flavourName}>{flavour.flavourName}</li>
           ))}
-        </ul>
+        </FlavourList>
 
-        <div>
+        <IconContainer>
           <IsFavIcon {...shop} />
           <BeenToIcon
             shop={shop}
@@ -92,7 +88,7 @@ const Marker: React.VFC<MarkerProps> = ({
             eachStoreId={eachStoreId}
             kw="marker"
           />
-        </div>
+        </IconContainer>
       </InfoWindow>
     </MarkerInfoContainer>
   );

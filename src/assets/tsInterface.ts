@@ -9,6 +9,7 @@ export interface MapProps {
 export interface MarkerProps {
   lat: string;
   lng: string;
+  areaName: string;
   shop: JsonProps;
   beenTo: boolean;
   eachStoreId: string;

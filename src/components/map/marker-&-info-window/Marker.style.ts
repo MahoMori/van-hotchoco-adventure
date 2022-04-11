@@ -1,46 +1,88 @@
 import styled from "styled-components";
+import { GiCoffeeMug } from "react-icons/gi";
 
 export const MarkerInfoContainer = styled.div`
   /* background-color: pink; */
-  width: 20rem;
-  height: 10rem;
+  width: 12rem;
+  height: 9.5rem;
+  height: auto;
   top: 100%;
   left: 50%;
   transform: translate(-50%, -100%);
 `;
 
+export const MarkerIcon = styled(GiCoffeeMug)<{ markerColor: string }>`
+  height: 50px;
+  width: 50px;
+  color: ${(props) => props.markerColor};
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: -1;
+`;
+
 export const InfoWindow = styled.div<{ isOpen: boolean }>`
-  display: ${(props) => (props.isOpen ? "block" : "none")};
+  display: ${(props) => (props.isOpen ? "grid" : "none")};
 
   position: relative;
   /* margin: 2em 0 2em 40px; */
-  padding: 15px;
-  background: #fff0c6;
+  /* padding: 1rem; */
+  background: #fff;
+  border-bottom: 0.2rem solid #84563c;
+  top: -4rem;
+  z-index: 10;
 
-  z-index: 1;
+  /* grid-template-rows: 70% 20% 10%; */
 
-  &::before {
-    content: "";
-    position: absolute;
-    left: 50%;
-    bottom: -50%;
-    width: 1.25rem;
-    height: 1.25rem;
-    /* background: #fff0c6; */
-    background: green;
-
-    border-radius: 50%;
-  }
-
+  &::before,
   &::after {
     content: "";
     position: absolute;
-    left: 49.5%;
-    bottom: -80%;
-    width: 0.8rem;
-    height: 0.8rem;
-    /* background: #fff0c6; */
-    background: red;
-    border-radius: 50%;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  &::before {
+    border: 1.1rem solid transparent;
+    border-top: 1.1rem solid #84563c;
+  }
+
+  &::after {
+    border-top: 0.8rem solid #fff;
+    border-right: 0.8rem solid transparent;
+    border-left: 0.8rem solid transparent;
+  }
+`;
+
+export const ShopName = styled.p`
+  background: #c70000;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.4rem 0.25rem;
+
+  & a {
+    color: #fff;
+  }
+`;
+
+export const FlavourList = styled.ul`
+  & li {
+    list-style: none;
+    font-size: 1rem;
+    margin: 0.4rem 0.25rem;
+  }
+`;
+
+export const IconContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  border-top: solid 2px #c70000;
+  padding: 0.4rem 0;
+
+  & * {
+    margin: 0 auto;
+    font-size: 1rem;
   }
 `;

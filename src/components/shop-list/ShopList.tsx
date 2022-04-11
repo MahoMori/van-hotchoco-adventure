@@ -1,86 +1,37 @@
-import React, { useEffect, useState } from "react";
-
-// ------ icon ------
-import { HiOutlineExternalLink } from "react-icons/hi";
+import React, { useState } from "react";
 
 // ------ redux ------
 import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ TS interface ------
-import { JsonProps, MapAreaClicked } from "../../assets/tsInterface";
-
-// ------ map area object ------
-import { mapAreaColor } from "../../assets/styleVariables";
+import { JsonProps } from "../../assets/tsInterface";
 
 // ------ components ------
-import IsFavIcon from "../reusable-components/IsFavIcon";
-import BeenToIcon from "../reusable-components/BeenToIcon";
 import EachShop from "./EachShop";
-import { prependListener } from "process";
-import { type } from "os";
 
-// #######################
-// shopName
-// flavours.flavourName
-// flavours.taste
-// websiteUrl
-// mapArea
-
-// favourite button
-// BsBookmarkHeartFill
-// BsBookmarkHeart
-// RiHeartsFill
-// RiHeartsLine
-
-// been to button
-// IoStorefrontOutline
-// IoStorefront
-// #######################
+// ------ styled component ------
+import { mapAreaColor } from "../../assets/styleVariables";
+import {
+  AreaFilterButton,
+  ButtonContainer,
+  ShopListTitle,
+  ShopListSection,
+  ListContainer,
+} from "./ShopList.style";
 
 const ShopList = () => {
   // ------ redux ------
   const shops = useSelector((state: TStore) => state.shops.shops);
 
+  // ------ button color style change ------
+  // const [clicked, setClicked] =
+
   // ------ filter ------
-  // const [filterShopName, setFilterShopName] = useState<string[]>([]);
-  // const [isAreaClicked, setIsAreaClicked] = useState<MapAreaClicked>()
   const [filteredShops, setFillteredShops] = useState<JsonProps[]>(shops);
-
-  // const isAreaClicked: MapAreaClicked = {
-  //   "Westside / Kerrisdale": false,
-  //   "North Vancouver / West Vancouver": false,
-  //   "Downtown Vancouver": false,
-  //   Burnaby: false,
-  //   "Mount Pleasant / East Vancouver": false,
-  //   "South Granville / Kitsilano": false,
-  //   "White Rock / Surrey": false,
-  //   Richmond: false,
-  //   Whistler: false,
-  //   "Tri-Cities": false,
-  // };
-
-  // const handleButtonClick = (area: string) => {
-  //   shops.map((shop) => {
-  //     shop.eachStoreInfo.map((eachShop) => {
-  //       if (eachShop.areaName === area) {
-  //         const idx: number = filterShopName.indexOf(shop.shopName);
-  //         console.log(idx);
-  //         if (idx !== -1) {
-  //           const newFilterShopName = filterShopName.splice(idx, 1);
-  //           setFilterShopName(newFilterShopName);
-  //         } else {
-  //           setFilterShopName((prev) =>
-  //             prev ? [...prev, shop.shopName] : [shop.shopName]
-  //           );
-  //         }
-  //       }
-  //     });
-  //   });
-  // };
+  const [clickedButton, setClickedButton] = useState<string>("All");
 
   const filterShops = (area: string) => {
-    // let filteredShops = shops.filter((shop) => shop.shopName === areaName);
     let newFilteredShops = shops.filter((shop) =>
       shop.eachStoreInfo.some((eachStore) => eachStore.areaName === area)
     );
@@ -93,43 +44,44 @@ const ShopList = () => {
     areaName !== "All"
       ? setFillteredShops(filterShops(areaName))
       : setFillteredShops(shops);
+    setClickedButton(areaName);
   };
 
-  // useEffect(() => {
-  //   listFiltering();
-  //   console.log("invoked");
-  // }, [filterShopName]);
-
   return (
-    <section>
-      <h2>Shop List</h2>
-      <div>
-        <button value="All" onClick={(e) => handleButtonClick(e)}>
+    <ShopListSection>
+      <ShopListTitle>- Shop List -</ShopListTitle>
+      <ButtonContainer>
+        <AreaFilterButton
+          value="All"
+          color="#84563c"
+          onClick={(e) => handleButtonClick(e)}
+          isClicked={clickedButton === "All" ? true : false}
+        >
           All
-        </button>
-        {Object.keys(mapAreaColor).map((area, i) => (
-          <button
+        </AreaFilterButton>
+        {Object.entries(mapAreaColor).map((areaAndColor, i) => (
+          <AreaFilterButton
             key={`area-button-${i}`}
-            value={area}
+            value={areaAndColor[0]}
+            color={areaAndColor[1]}
             onClick={(e) => handleButtonClick(e)}
+            isClicked={clickedButton === areaAndColor[0] ? true : false}
           >
-            {area}
-          </button>
+            {areaAndColor[0]}
+          </AreaFilterButton>
         ))}
-        {/* {shops.map((shop) => (
-          <button value={shop.shopName} onClick={(e) => handleButtonClick(e)}>
-            {shop.shopName}
-          </button>
-        ))} */}
-      </div>
+      </ButtonContainer>
 
-      {filteredShops.length > 0 ? (
-        filteredShops.map((shop) => <EachShop key={shop.shopName} {...shop} />)
-      ) : (
-        // shops.map((shop) => <EachShop key={shop.shopName} {...shop} />)
-        <div>No matching data😔</div>
-      )}
-    </section>
+      <ListContainer>
+        {filteredShops.length > 0 ? (
+          filteredShops.map((shop) => (
+            <EachShop key={shop.shopName} {...shop} />
+          ))
+        ) : (
+          <p style={{ textAlign: "center" }}>No matching shop😔</p>
+        )}
+      </ListContainer>
+    </ShopListSection>
   );
 };
 
