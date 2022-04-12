@@ -26,16 +26,13 @@ import { setReduxState } from "../../redux/shopSlice";
 
 const ShopList = () => {
   // ------ redux ------
-  // const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
 
   useEffect(() => {
-    // if (!(shops.length > 0)) {
-    //   dispatch(setReduxState(shopListData));
-    setFillteredShops(shopListData);
-    //   console.log("shops: ", shops);
-    // }
-  }, []);
+    setFillteredShops(shops);
+
+    // setFillteredShops(shopListData);
+  }, [shops]);
 
   // ------ filter ------
   const [filteredShops, setFillteredShops] =
@@ -85,12 +82,16 @@ const ShopList = () => {
 
       <ListContainer>
         {filteredShops.length > 0 ? (
-          filteredShops.map((shop) => (
-            <EachShop key={shop.shopName} {...shop} />
+          filteredShops.map((shop, i) => (
+            <EachShop key={`${shop.shopName}-${i}`} {...shop} />
           ))
         ) : (
-          <p style={{ textAlign: "center" }}>No matching shop😔</p>
+          // <p style={{ textAlign: "center" }}>No matching shop😔</p>
+          <p style={{ textAlign: "center" }}>Loading......☕</p>
         )}
+        {/* {filteredShops.map((shop, i) => (
+          <EachShop key={`${shop.shopName}-${i}`} {...shop} />
+        ))} */}
       </ListContainer>
     </ShopListSection>
   );

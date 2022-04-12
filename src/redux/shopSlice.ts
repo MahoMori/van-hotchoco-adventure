@@ -92,19 +92,32 @@ export const shopSlice = createSlice({
   name: "shops",
   initialState,
   reducers: {
-    setReduxState: (state, action: PayloadAction<JsonProps[]>) => {
-      const newPayload = action.payload.map((shop) => {
-        shop.eachStoreInfo.map((eachStore) => {
-          eachStore.eachStoreId = uuid();
-          return eachStore;
-        });
-        return shop;
+    setReduxState: (state, action: PayloadAction<JsonProps>) => {
+      let newPayload = action.payload;
+      const newEachStoreInfo = newPayload.eachStoreInfo.map((eachStore) => {
+        eachStore.eachStoreId = uuid();
+        return eachStore;
       });
+      newPayload.eachStoreInfo = newEachStoreInfo;
 
-      state.shops = newPayload;
+      state.shops = [...state.shops, newPayload];
 
-      console.log("state.shops: ", state.shops);
+      // console.log("state.shops: ", state.shops);
     },
+
+    // setReduxState: (state, action: PayloadAction<JsonProps[]>) => {
+    //   const newPayload = action.payload.map((shop) => {
+    //     shop.eachStoreInfo.map((eachStore) => {
+    //       eachStore.eachStoreId = uuid();
+    //       return eachStore;
+    //     });
+    //     return shop;
+    //   });
+
+    //   state.shops = newPayload;
+
+    //   console.log("state.shops: ", state.shops);
+    // },
 
     changeIsFav: (state, action: PayloadAction<JsonProps>) => {
       const payloadShop: JsonProps = { ...action.payload };

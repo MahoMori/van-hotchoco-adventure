@@ -22,16 +22,58 @@ import { TStore } from "./redux/store";
 
 // ------ styled component ------
 import { Footer, Nav, StyledLink, Title } from "./App.style";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  QuerySnapshot,
+} from "@firebase/firestore";
+import { db } from "./firebase/firebase.util";
 
 function App() {
   // ------ redux ------
   const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
 
-  useEffect(() => {
-    console.log("shopListData: ", shopListData);
+  const getDataFromFirebase = async () => {
+    try {
+      const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(
+        collection(db, "shop-info")
+      );
+      querySnapshot.forEach((doc: { data: () => any }) => {
+        const data = doc.data();
+        // setShopData((prev) => [
+        //   ...prev,
+        //   {
+        //     shopName: data.shopName,
+        //     flavours: data.flavours,
+        //     eachStoreInfo: data.eachStoreInfo,
+        //     websiteUrl: data.websiteUrl,
+        //     filtering: data.filtering,
+        //     isFav: data.isFav,
+        //   },
+        // ]);
+        dispatch(
+          setReduxState({
+            shopName: data.shopName,
+            flavours: data.flavours,
+            eachStoreInfo: data.eachStoreInfo,
+            websiteUrl: data.websiteUrl,
+            filtering: data.filtering,
+            isFav: data.isFav,
+          })
+        );
+      });
+      console.log(shops);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    dispatch(setReduxState(shopListData));
+  useEffect(() => {
+    getDataFromFirebase();
+
+    // dispatch(setReduxState(shopListData));
     console.log("shops: ", shops);
   }, []);
 
