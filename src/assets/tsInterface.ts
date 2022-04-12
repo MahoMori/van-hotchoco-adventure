@@ -52,3 +52,9 @@ export interface BeenToIconProps {
   eachStoreId: string;
   kw: string;
 }
+
+export interface optionsParams {
+  enableHighAccuracy: boolean;
+  timeout: number;
+  maximumAge: number;
+}

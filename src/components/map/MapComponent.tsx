@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 // ------ google map react ------
 import GoogleMapReact from "google-map-react";
@@ -7,7 +7,7 @@ import GoogleMapReact from "google-map-react";
 import shopListData from "../../firebase/shop-info.json";
 
 // ------ redux ------
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ TS interface ------
@@ -19,7 +19,6 @@ import Marker from "./marker-&-info-window/Marker";
 // ------ styled component ------
 import { GoogleMapContainer } from "./MapComponent.style";
 import { Section } from "../../assets/styleVariables";
-import { setReduxState } from "../../redux/shopSlice";
 
 // ------ google map initial props ------
 const initialMapProps: MapProps = {
@@ -33,29 +32,12 @@ const initialMapProps: MapProps = {
 // ------ google map api key ------
 const API_KEY: string | undefined = process.env.REACT_APP_GOOGLE_MAP_API;
 
-// #######################
-// データをFIREBASEからとってくる
-// 一回のみでOK？　変更しないので
-// reduxに収納し、isFavやbeenToを追加
-
-// locationをmarker propsに入れてmap
-// #######################
-
 const MapComponent = () => {
   // ------ google map react ------
   const [mapProps, setMapProps] = useState<MapProps>(initialMapProps);
 
   // ------ redux ------
-  // ------ redux ------
-  // const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
-
-  // useEffect(() => {
-  //   if (!(shops.length > 0)) {
-  //     dispatch(setReduxState(shopListData));
-  //     console.log("shops: ", shops);
-  //   }
-  // }, []);
 
   return (
     <Section>

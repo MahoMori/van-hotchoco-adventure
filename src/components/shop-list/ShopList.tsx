@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import shopListData from "../../firebase/shop-info.json";
 
 // ------ redux ------
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { TStore } from "../../redux/store";
 
 // ------ TS interface ------
@@ -22,7 +22,6 @@ import {
   ShopListSection,
   ListContainer,
 } from "./ShopList.style";
-import { setReduxState } from "../../redux/shopSlice";
 
 const ShopList = () => {
   // ------ redux ------
@@ -30,8 +29,6 @@ const ShopList = () => {
 
   useEffect(() => {
     setFillteredShops(shops);
-
-    // setFillteredShops(shopListData);
   }, [shops]);
 
   // ------ filter ------

@@ -37,8 +37,6 @@ export const ShopName = styled.p`
 export const IconContainer = styled.div<{ isOpen: boolean }>`
   display: ${(props) => (props.isOpen ? "flex" : "none")};
   justify-content: space-around;
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr); */
 
   & * {
     font-size: 1.2rem;
@@ -52,7 +50,6 @@ export const FlavourList = styled.li<{ isOpen: boolean }>`
 
   & p:first-child {
     display: inline-block;
-    /* color: #84563c; */
     -webkit-text-stroke: 0.25px #a7e1d1;
     text-stroke: 0.25px #a7e1d1;
 

@@ -8,7 +8,6 @@ export const ShopListSection = styled(Section)`
     content: "";
     height: 6rem;
     width: 100%;
-    /* background: pink; */
     position: absolute;
   }
 `;

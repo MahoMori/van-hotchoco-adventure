@@ -1,12 +1,11 @@
 import React from "react";
 
 // ------ icon ------
-import { BsBookmarkHeart, BsBookmarkHeartFill } from "react-icons/bs";
 import { IoStorefront, IoStorefrontOutline } from "react-icons/io5";
 
 // ------ redux ------
 import { useDispatch } from "react-redux";
-import { changeIsFav, changeBeenTo } from "../../redux/shopSlice";
+import { changeBeenTo } from "../../redux/shopSlice";
 
 // ------ TS interface ------
 import { BeenToIconProps, LocationPropsF } from "../../assets/tsInterface";

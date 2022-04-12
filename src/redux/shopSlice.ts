@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { JsonProps, LocationPropsF, ReduxState } from "../assets/tsInterface";
+import {
+  JsonProps,
+  LocationPropsF,
+  ReduxState,
+  optionsParams,
+} from "../assets/tsInterface";
 import { v4 as uuid } from "uuid";
-
-interface optionsParams {
-  enableHighAccuracy: boolean;
-  timeout: number;
-  maximumAge: number;
-}
 
 const getCoordinates = (options?: optionsParams) => {
   return new Promise((resolve, reject) =>
@@ -27,36 +26,17 @@ const arePointsNear = (
   return Math.sqrt(dx * dx + dy * dy) <= km;
 };
 
-// First, create the thunk
 export const changeBeenTo = createAsyncThunk(
   "shops/changeBeenToStatus",
   async (payload: [JsonProps, LocationPropsF, string], thunkAPI) => {
     const payloadShop: JsonProps = payload[0];
-    // const shopLocation: LocationPropsF = payload[1];
+    const shopLocation: LocationPropsF = payload[1];
     const payloadId: string = payload[2];
 
-    // ---- close to current location ----
-    const shopLocation: LocationPropsF = {
-      lat: 49.2177522,
-      lng: -123.0604064,
-    };
-
-    // ---- close to library ----
-    // const shopLocation: LocationPropsF = {
-    //   lat: 49.2785417,
-    //   lng: -123.0999191,
-    // };
-
     let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
-    // ---- current location ----
-    // let currentLocation: LocationPropsF = {
-    //   lat: 49.2177376,
-    //   lng: -123.0604381,
-    // };
 
     let result: boolean = false;
 
-    // ----- helper functions -----
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
@@ -101,23 +81,7 @@ export const shopSlice = createSlice({
       newPayload.eachStoreInfo = newEachStoreInfo;
 
       state.shops = [...state.shops, newPayload];
-
-      // console.log("state.shops: ", state.shops);
     },
-
-    // setReduxState: (state, action: PayloadAction<JsonProps[]>) => {
-    //   const newPayload = action.payload.map((shop) => {
-    //     shop.eachStoreInfo.map((eachStore) => {
-    //       eachStore.eachStoreId = uuid();
-    //       return eachStore;
-    //     });
-    //     return shop;
-    //   });
-
-    //   state.shops = newPayload;
-
-    //   console.log("state.shops: ", state.shops);
-    // },
 
     changeIsFav: (state, action: PayloadAction<JsonProps>) => {
       const payloadShop: JsonProps = { ...action.payload };
@@ -135,6 +99,7 @@ export const shopSlice = createSlice({
       });
     },
   },
+
   extraReducers: (builder) => {
     builder.addCase(changeBeenTo.fulfilled, (state, action) => {
       const shopToUpdate = state.shops.find(

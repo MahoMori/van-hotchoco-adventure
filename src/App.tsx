@@ -13,7 +13,7 @@ import FirebaseUploader from "./firebase/firebase.uploader";
 import { TStore } from "./redux/store";
 
 // ------ get data from firebase ------
-import { Footer, Nav, StyledLink, Title } from "./App.style";
+import { Footer, Nav, Title } from "./App.style";
 import { db } from "./firebase/firebase.util";
 
 // ------ components ------
@@ -61,7 +61,6 @@ function App() {
   useEffect(() => {
     getDataFromFirebase();
 
-    // dispatch(setReduxState(shopListData));
     console.log("shops: ", shops);
   }, []);
 

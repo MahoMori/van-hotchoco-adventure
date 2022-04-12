@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { GiCoffeeMug } from "react-icons/gi";
 
 export const MarkerInfoContainer = styled.div`
-  /* background-color: pink; */
   width: 12rem;
   height: 9.5rem;
   height: auto;
@@ -26,14 +25,10 @@ export const InfoWindow = styled.div<{ isOpen: boolean }>`
   display: ${(props) => (props.isOpen ? "grid" : "none")};
 
   position: relative;
-  /* margin: 2em 0 2em 40px; */
-  /* padding: 1rem; */
   background: #fff;
   border-bottom: 0.2rem solid #84563c;
   top: -4rem;
   z-index: 10;
-
-  /* grid-template-rows: 70% 20% 10%; */
 
   &::before,
   &::after {
