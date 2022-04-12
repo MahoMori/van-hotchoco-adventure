@@ -21,77 +21,72 @@ import {
 } from "./Marker.style";
 import { mapAreaColor } from "../../../assets/styleVariables";
 
-const Marker: React.VFC<MarkerProps> = ({
-  lat,
-  lng,
-  areaName,
-  shop,
-  beenTo,
-  eachStoreId,
-}) => {
-  // ------ set shop location ------
-  const shopLocation: LocationPropsF = {
-    lat: parseFloat(lat),
-    lng: parseFloat(lng),
-  };
+const Marker: React.VFC<MarkerProps> = React.memo(
+  ({ lat, lng, areaName, shop, beenTo, eachStoreId }) => {
+    // ------ set shop location ------
+    const shopLocation: LocationPropsF = {
+      lat: parseFloat(lat),
+      lng: parseFloat(lng),
+    };
 
-  // ------ set area color ------
-  const areaColor: string = mapAreaColor[areaName];
+    // ------ set area color ------
+    const areaColor: string = mapAreaColor[areaName];
 
-  // ------ is Info Window open ------
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+    // ------ is Info Window open ------
+    const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const handleClick = (className: string) => {
-    const childElem: HTMLElement | null = document.querySelector(className);
-    const parentElem = childElem?.parentElement;
+    const handleClick = (className: string) => {
+      const childElem: HTMLElement | null = document.querySelector(className);
+      const parentElem = childElem?.parentElement;
 
-    console.log(parentElem);
+      console.log(parentElem);
 
-    if (isOpen) {
-      (parentElem as HTMLElement).style.zIndex = "0";
-      setIsOpen(false);
-    } else {
-      (parentElem as HTMLElement).style.zIndex = "100";
-      setIsOpen(true);
-    }
-  };
+      if (isOpen) {
+        (parentElem as HTMLElement).style.zIndex = "0";
+        setIsOpen(false);
+      } else {
+        (parentElem as HTMLElement).style.zIndex = "100";
+        setIsOpen(true);
+      }
+    };
 
-  return (
-    <MarkerInfoContainer className={`child-${eachStoreId}`}>
-      <MarkerIcon
-        markerColor={areaColor}
-        onClick={(): void => {
-          handleClick(`.child-${eachStoreId}`);
-        }}
-      ></MarkerIcon>
+    return (
+      <MarkerInfoContainer className={`child-${eachStoreId}`}>
+        <MarkerIcon
+          markerColor={areaColor}
+          onClick={(): void => {
+            handleClick(`.child-${eachStoreId}`);
+          }}
+        ></MarkerIcon>
 
-      <InfoWindow isOpen={isOpen}>
-        <ShopName>
-          <a href={shop.websiteUrl}>
-            {shop.shopName}
-            <HiOutlineExternalLink />
-          </a>
-        </ShopName>
+        <InfoWindow isOpen={isOpen}>
+          <ShopName>
+            <a href={shop.websiteUrl}>
+              {shop.shopName}
+              <HiOutlineExternalLink />
+            </a>
+          </ShopName>
 
-        <FlavourList>
-          {shop.flavours.map((flavour) => (
-            <li key={flavour.flavourName}>{flavour.flavourName}</li>
-          ))}
-        </FlavourList>
+          <FlavourList>
+            {shop.flavours.map((flavour) => (
+              <li key={flavour.flavourName}>{flavour.flavourName}</li>
+            ))}
+          </FlavourList>
 
-        <IconContainer>
-          <IsFavIcon {...shop} />
-          <BeenToIcon
-            shop={shop}
-            beenTo={beenTo}
-            storeLocation={shopLocation}
-            eachStoreId={eachStoreId}
-            kw="marker"
-          />
-        </IconContainer>
-      </InfoWindow>
-    </MarkerInfoContainer>
-  );
-};
+          <IconContainer>
+            <IsFavIcon {...shop} />
+            <BeenToIcon
+              shop={shop}
+              beenTo={beenTo}
+              storeLocation={shopLocation}
+              eachStoreId={eachStoreId}
+              kw="marker"
+            />
+          </IconContainer>
+        </InfoWindow>
+      </MarkerInfoContainer>
+    );
+  }
+);
 
 export default Marker;

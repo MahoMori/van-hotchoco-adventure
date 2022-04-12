@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Routes, Route, useLocation, Link } from "react-router-dom";
 
 // ------ icon ------
@@ -52,7 +52,6 @@ function App() {
           })
         );
       });
-      console.log(shops);
     } catch (err) {
       console.log(err);
     }
@@ -70,7 +69,6 @@ function App() {
 
   useEffect(() => {
     setPage(location.pathname);
-    console.log(location);
   }, [location]);
 
   return (

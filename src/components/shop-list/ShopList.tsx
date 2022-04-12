@@ -34,12 +34,19 @@ const ShopList = () => {
   // ------ filter ------
   const [filteredShops, setFillteredShops] =
     useState<JsonProps[]>(shopListData);
+  const [noData, setNoData] = useState<boolean>(false);
   const [clickedButton, setClickedButton] = useState<string>("All");
 
   const filterShops = (area: string) => {
     let newFilteredShops = shops.filter((shop) =>
       shop.eachStoreInfo.some((eachStore) => eachStore.areaName === area)
     );
+
+    if (newFilteredShops.length === 0) {
+      setNoData(true);
+    } else {
+      setNoData(false);
+    }
 
     return newFilteredShops;
   };
@@ -82,13 +89,11 @@ const ShopList = () => {
           filteredShops.map((shop, i) => (
             <EachShop key={`${shop.shopName}-${i}`} {...shop} />
           ))
+        ) : noData ? (
+          <p style={{ textAlign: "center" }}>No matching shop😔</p>
         ) : (
-          // <p style={{ textAlign: "center" }}>No matching shop😔</p>
           <p style={{ textAlign: "center" }}>Loading......☕</p>
         )}
-        {/* {filteredShops.map((shop, i) => (
-          <EachShop key={`${shop.shopName}-${i}`} {...shop} />
-        ))} */}
       </ListContainer>
     </ShopListSection>
   );
