@@ -30,7 +30,7 @@ export const Nav = styled.nav`
   grid-template-columns: repeat(4, 1fr);
   height: 100%;
 
-  & * {
+  & a {
     text-decoration: none;
     font-size: 1.25rem;
     color: #c70000;
