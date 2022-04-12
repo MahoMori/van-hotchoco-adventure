@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { device } from "./assets/screenSize";
 
 export const Title = styled.h1`
   font-family: "Train One", cursive;
@@ -8,10 +7,8 @@ export const Title = styled.h1`
   text-align: center;
   line-height: 2rem;
 
-  @media ${device.mobileS} {
-    font-size: 1.75rem;
-    margin: 0.5rem 0;
-  }
+  font-size: 1.75rem;
+  margin: 0.5rem 0;
 `;
 
 export const Footer = styled.footer`
@@ -20,9 +17,7 @@ export const Footer = styled.footer`
   background: #fff;
   width: 100%;
 
-  @media ${device.mobileS} {
-    height: 4rem;
-  }
+  height: 4rem;
 `;
 
 export const Nav = styled.nav`

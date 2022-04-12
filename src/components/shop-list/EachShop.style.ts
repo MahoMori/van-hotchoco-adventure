@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../../assets/screenSize";
 
 export const EachShopContainer = styled.div<{ isOpen: boolean }>`
   --bg-gradient: linear-gradient(#a7e1d1 0 100%);
@@ -13,6 +14,16 @@ export const EachShopContainer = styled.div<{ isOpen: boolean }>`
 
   height: auto;
   overflow: hidden;
+
+  @media ${device.tablet} {
+    padding: 1rem 10rem;
+  }
+
+  @media ${device.laptop} {
+    margin: 0 auto 0.5rem;
+    width: 70%;
+    padding: 1rem 10rem;
+  }
 `;
 
 export const ShopName = styled.p`
