@@ -32,6 +32,7 @@ export const ShopName = styled.p`
   font-weight: bold;
   margin-bottom: 0.7rem;
   border-bottom: dotted 2px #d25126;
+  cursor: pointer;
 `;
 
 export const IconContainer = styled.div<{ isOpen: boolean }>`

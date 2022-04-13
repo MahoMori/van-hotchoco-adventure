@@ -29,6 +29,7 @@ const FavBeenToIcons: React.VFC<BeenToIconProps> = ({
               "You've already been to this place! How was their hot chocolate?😋"
             )
           }
+          style={{ cursor: "pointer" }}
         />
       ) : (
         <IoStorefrontOutline
@@ -43,6 +44,7 @@ const FavBeenToIcons: React.VFC<BeenToIconProps> = ({
               );
             }
           }}
+          style={{ cursor: "pointer" }}
         />
       )}
     </>

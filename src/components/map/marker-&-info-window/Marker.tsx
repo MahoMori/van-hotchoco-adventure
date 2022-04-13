@@ -61,7 +61,7 @@ const Marker: React.VFC<MarkerProps> = React.memo(
 
         <InfoWindow isOpen={isOpen}>
           <ShopName>
-            <a href={shop.websiteUrl}>
+            <a href={shop.websiteUrl} target="_blank" rel="noreferrer">
               {shop.shopName}
               <HiOutlineExternalLink />
             </a>

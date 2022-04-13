@@ -23,11 +23,10 @@ const EachShop = (shop: JsonProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   return (
-    <EachShopContainer
-      isOpen={isOpen}
-      onClick={() => (isOpen ? setIsOpen(false) : setIsOpen(true))}
-    >
-      <ShopName>{shop.shopName}</ShopName>
+    <EachShopContainer isOpen={isOpen}>
+      <ShopName onClick={() => (isOpen ? setIsOpen(false) : setIsOpen(true))}>
+        {shop.shopName}
+      </ShopName>
 
       <IconContainer isOpen={isOpen}>
         <IsFavIcon {...shop} />

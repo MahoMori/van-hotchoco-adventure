@@ -17,9 +17,15 @@ const FavBeenToIcons: React.VFC<JsonProps> = (shop) => {
   return (
     <>
       {shop.isFav ? (
-        <BsBookmarkHeartFill onClick={() => dispatch(changeIsFav(shop))} />
+        <BsBookmarkHeartFill
+          onClick={() => dispatch(changeIsFav(shop))}
+          style={{ cursor: "pointer" }}
+        />
       ) : (
-        <BsBookmarkHeart onClick={() => dispatch(changeIsFav(shop))} />
+        <BsBookmarkHeart
+          onClick={() => dispatch(changeIsFav(shop))}
+          style={{ cursor: "pointer" }}
+        />
       )}
     </>
   );
