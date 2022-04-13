@@ -34,6 +34,7 @@ export const AreaFilterButton = styled.button<{
   font-size: 1rem;
   padding: 0 0.5rem;
   height: 1.7rem;
+  cursor: pointer;
 `;
 
 export const ListContainer = styled.div`

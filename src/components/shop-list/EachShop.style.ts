@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { device } from "../../assets/screenSize";
 
-export const EachShopContainer = styled.div<{ isOpen: boolean }>`
+export const EachShopContainer = styled.div`
   --bg-gradient: linear-gradient(#a7e1d1 0 100%);
   margin: 0 0 0.5rem 0;
   padding: 0.7rem 1rem;

@@ -34,6 +34,7 @@ function App() {
   const dispatch = useDispatch();
   const shops = useSelector((state: TStore) => state.shops.shops);
 
+  // const getDataFromFirebase = useCallback(async () => {
   const getDataFromFirebase = async () => {
     try {
       const querySnapshot: QuerySnapshot<DocumentData> = await getDocs(
@@ -55,12 +56,11 @@ function App() {
     } catch (err) {
       console.log(err);
     }
+    // }, [dispatch]);
   };
 
   useEffect(() => {
     getDataFromFirebase();
-
-    console.log("shops: ", shops);
   }, []);
 
   // ------ change nav color depending on page showing ------

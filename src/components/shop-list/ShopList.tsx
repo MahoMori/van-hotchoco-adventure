@@ -26,9 +26,14 @@ import {
 const ShopList = () => {
   // ------ redux ------
   const shops = useSelector((state: TStore) => state.shops.shops);
+  const [filteredAreaName, setFilteredAreaName] = useState<string>("All");
 
   useEffect(() => {
-    setFillteredShops(shops);
+    if (filteredAreaName === "All") {
+      setFillteredShops(shops);
+    } else {
+      setFillteredShops(filterShops(filteredAreaName));
+    }
   }, [shops]);
 
   // ------ filter ------
@@ -52,10 +57,13 @@ const ShopList = () => {
   };
 
   const handleButtonClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    let areaName = (e.target as HTMLInputElement).value;
+    const areaName = (e.target as HTMLInputElement).value;
+    setFilteredAreaName(areaName);
+
     areaName !== "All"
       ? setFillteredShops(filterShops(areaName))
       : setFillteredShops(shops);
+
     setClickedButton(areaName);
   };
 

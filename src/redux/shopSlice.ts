@@ -7,6 +7,8 @@ import {
 } from "../assets/tsInterface";
 import { v4 as uuid } from "uuid";
 
+import { testShopLocation } from "./locationForTesting";
+
 const getCoordinates = (options?: optionsParams) => {
   return new Promise((resolve, reject) =>
     navigator.geolocation.getCurrentPosition(resolve, reject, options)
@@ -30,7 +32,8 @@ export const changeBeenTo = createAsyncThunk(
   "shops/changeBeenToStatus",
   async (payload: [JsonProps, LocationPropsF, string], thunkAPI) => {
     const payloadShop: JsonProps = payload[0];
-    const shopLocation: LocationPropsF = payload[1];
+    // const shopLocation: LocationPropsF = payload[1];
+    const shopLocation = testShopLocation;
     const payloadId: string = payload[2];
 
     let currentLocation: LocationPropsF = { lat: 0, lng: 0 };
